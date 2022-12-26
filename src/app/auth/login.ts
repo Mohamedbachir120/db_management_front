@@ -29,9 +29,16 @@ export const apiSlice = createApi({
                 body:{
                     email:credentials.email,
                     password:credentials.password
+                },
+                responseHandler:(response) => {
+                    
+                    return response.text();
+                    
+
                 }
 
-            })
+            }),
+
         })
        
     })

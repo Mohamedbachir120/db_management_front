@@ -13,7 +13,8 @@ import { faEnvelope , faLock , faSignInAlt} from '@fortawesome/free-solid-svg-ic
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function App() {
-  const [loginp,setLoginparams] = useState(new loginParams("",""))
+  const [loginp,setLoginparams] = useState(new loginParams("bachir.hadjadji@naftal.dz","moh12345"))
+  const [login,{isLoading}] = useLoginMutation();
 
   return (
     <div className="App d-flex flex-column align-items-center">
@@ -39,7 +40,7 @@ function App() {
           </h5>
           <div>
 
-          <img src={datacenter} id="datacenter" alt="data center" height={500} />
+          <img src={datacenter} id="datacenter" alt="data center"  />
           </div>
 
         </div>
@@ -47,7 +48,7 @@ function App() {
       <div className="col-4 pt-5 pe-5">
       <h1 className='mt-5 text-white text-center'>CONNEXION</h1>
 
-        <Form className='mt-5'>
+        <Form className='mt-3'>
           <Form.Group className='my-3 d-flex flex-column align-items-start' controlId='formBasicEmail'>
             <Form.Label className='fw-bold text-white'>
           <FontAwesomeIcon icon={faEnvelope} className="me-2"  />
@@ -76,13 +77,12 @@ function App() {
         <div className="d-flex flex-row justify-content-center">
 
         <Button  className='w-100 sign-in' onClick={async () => {
-          console.log(loginp);
           
-          // const loginparams =  new loginParams("bachir.hadjadji@naftal.dz","moh12345");
-          // console.log(loginparams);
           
-          // const result= await login(loginparams);
-          // console.log(result);
+        
+          const result= await login(loginp);
+          
+          
           
         }}>
           Se connecter

@@ -11,6 +11,8 @@ import Login from './app/views/login'
 import Protected from './hoc/Protected'
 import PrivateWrapper from './hoc/Protected'
 import PublicWrapper from './hoc/UnProtected'
+import ServeurPage from './app/views/ServeurPage'
+import LinkedServerPage from './app/views/LinkedServerPage'
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
@@ -29,6 +31,16 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         <Route path="/home" element={
           <PrivateWrapper>
             <Home/>
+          </PrivateWrapper>   
+        }/>   
+         <Route path="/serveurs" element={
+          <PrivateWrapper>
+            <ServeurPage/>
+          </PrivateWrapper>   
+        }/>   
+        <Route path="/linked-servers" element={
+          <PrivateWrapper>
+            <LinkedServerPage/>
           </PrivateWrapper>   
         }/>   
       </Routes>    

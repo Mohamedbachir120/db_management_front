@@ -4,14 +4,18 @@ import { Link } from 'react-router-dom';
 import logo from "../../assets/logo-color.svg";
 import { faSignOut,faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useAppSelector } from '../hooks';
+import { useAppDispatch, useAppSelector } from '../hooks';
 import { useLogoutMutation } from '../../features/login/login';
 import { Button, Form } from 'react-bootstrap';
 
 
 export default function Header() {
     const auth = useAppSelector((state) => state.auth);
+    console.log(auth);
+    
     const [searchVal,setSearchVal] = useState("")
+    const dispatch = useAppDispatch(); 
+    
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const [logout,{isLoading}] = useLogoutMutation();
 

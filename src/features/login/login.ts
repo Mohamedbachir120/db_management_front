@@ -24,13 +24,18 @@ export class loginParams {
 export const apiSlice = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://192.168.0.127:8000/api/auth',
+        baseUrl: 'http://10.80.100.252:8000/api/auth',
         prepareHeaders: (headers, { getState }) => {
             const token = localStorage.getItem('token');
-        
+            console.log(token);
+            
             // If we have a token set in state, let's assume that we should be passing it.
             if (token) {
-              headers.set('authorization', `Bearer ${token}`)
+                
+              headers.set('authorization', `Bearer ${token}`);
+              headers.set('Accept', 'application/json');
+
+
             }
         
             return headers
@@ -56,15 +61,21 @@ export const apiSlice = createApi({
         logout: builder.mutation<LogoutResponse,string>({
             query: () => ({
                 url: "/logout",
-                method: 'post',
+                method: 'POST',
+                responseHandler:(response)=>{
+
+                    store.dispatch(signOut());
+                    
+
+                    return response.text();
+                    
+
+                }
 
             }),
-           
-            onQueryStarted(arg, api) {
-                store.dispatch(signOut());
-                
-            },
-
+            
+            
+          
            
 
         }),

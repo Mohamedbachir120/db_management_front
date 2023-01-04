@@ -11,7 +11,6 @@ import { Button, Form } from 'react-bootstrap';
 
 export default function Header() {
     const auth = useAppSelector((state) => state.auth);
-    console.log(auth);
     
     const [searchVal,setSearchVal] = useState("")
     const dispatch = useAppDispatch(); 

@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useAppDispatch } from '../../app/hooks';
 import { AuthState, setCredentials, signOut } from '../auth/auth-slice';
 import { store } from '../../app/store';
+import { baseUrl } from '../../app/constantes/const';
 
 interface Credential {
     id: number,
@@ -24,10 +25,9 @@ export class loginParams {
 export const apiSlice = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://10.80.100.252:8000/api/auth',
+        baseUrl: baseUrl,
         prepareHeaders: (headers, { getState }) => {
             const token = localStorage.getItem('token');
-            console.log(token);
             
             // If we have a token set in state, let's assume that we should be passing it.
             if (token) {
@@ -47,7 +47,7 @@ export const apiSlice = createApi({
 
         login: builder.mutation<Credential, loginParams>({
             query: (credentials) => ({
-                url: "/login",
+                url: "auth/login",
                 method: 'post',
                 body: {
                     email: credentials.email,
@@ -60,7 +60,7 @@ export const apiSlice = createApi({
         }),
         logout: builder.mutation<LogoutResponse,string>({
             query: () => ({
-                url: "/logout",
+                url: "auth/logout",
                 method: 'POST',
                 responseHandler:(response)=>{
 

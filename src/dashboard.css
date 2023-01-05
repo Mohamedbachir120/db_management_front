@@ -14,6 +14,8 @@
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
     --MAINCOLOR:#50A060;
+    --SECONDARYCOLOR: #CFFDE1;
+
   }
   ::-webkit-scrollbar {
     width: 9px;
@@ -32,9 +34,24 @@
 .text-green{
 color: var(--MAINCOLOR);
 }
-.bg-green{
-    color: whitesmoke;
-    background: var(--MAINCOLOR);
+.bg-primaire{
+    color: whitesmoke !important;
+    background: var(--MAINCOLOR) !important;
+}
+.bg-secondaire{
+   color: rgb(1, 52, 1) !important;
+   background: var(--SECONDARYCOLOR) !important;
+   border-color:var(--SECONDARYCOLOR) !important ;
+
+}
+.bg-error{
+    background: rgba(255, 0, 0, 0.201) !important;
+    border-radius: 50% !important;
+    height: 10vw !important;
+    width: 10vw !important;
+    text-align: center;
+    vertical-align: center;
+
 }
 .navbar{
     min-height: 100vh;

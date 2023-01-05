@@ -2,21 +2,28 @@ import React from 'react'
 import  Navbar  from './../components/Navbar'
 import Header from '../components/Header'
 import { useFetchServersQuery,Server } from '../../features/serveur/serveur' 
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Modal } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import TableSkeleton from '../components/skeletons/TableSkeleton';
+import AddServerModal from '../components/modals/addServerModal';
+import DetailsServerModal from '../components/modals/detailsServerModal';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { ServerUiState, show, showDetail, showEdit } from '../../features/serveur/server-ui';
+import EditServerModal from '../components/modals/editServerModal';
 
 export default function ServeurPage() {
 
   const [keyword, setKeyword] = React.useState("");
   const [page,setPage] = React.useState(1);
 
-  const { data,isFetching } = useFetchServersQuery({keyword,page});
+  const { data,isFetching,refetch } = useFetchServersQuery({keyword,page});
+  const dispatch = useAppDispatch();
 
+  function CustomRefetch(){
+    refetch();
 
-
-  
+  }  
   return (
     <div className='d-flex flex-row'>
       <div className='col-3'>
@@ -39,45 +46,57 @@ export default function ServeurPage() {
 
           </div>
           <div>
-            <Button variant='primary'> <FontAwesomeIcon icon={faAdd} /> Ajouter un nouveau serveur</Button>
+          
+            <button className='btn bg-secondaire' onClick={() =>{dispatch(show()); }}> <FontAwesomeIcon icon={faAdd} /> Ajouter un nouveau serveur</button>
 
           </div>
           </div>
            
           <table className='table table-striped'>
             <thead >
-              <tr className='bg-green'>
+              <tr className='bg-primaire'>
                 <td>DNS</td>
                 <td>IP</td>
                 <td>Instance name</td>
                 <td>Port</td>
-                <td>Nombre de bdd</td>      
+                <td>OS</td>
+                <td>Nombre de bdd</td>    
+
                 <td>Détails</td>          
               </tr>
             </thead>
-            {!isFetching ?
+            
+            
+             {!isFetching ?
            ( <tbody>
               
             {  data?.data.map((server:Server) => {
+             
+
               return (<tr key={server.id}>
                 <td>{server.dns}</td>
                 <td>{server.ip}</td>
                 <td>{server.instance_name}</td>
                 <td>{server.port}</td>
+                <td>{server.OSversion}</td>
                 <td>{server.bdds_count}</td>
-                <td><Button variant='primary'>Détails</Button></td>
+                <td><Button className='bg-secondaire' onClick={()=>{
+                  
+                  dispatch(showDetail(server));
+
+                }}>Détails</Button></td>
 
 
               </tr>)
               
             }) }
-            </tbody> ) : (<TableSkeleton />)}
+            </tbody> ) : (<TableSkeleton />)} 
+            
 
           </table>
           <div className='d-flex flex-row justify-content-start'>
           
           {           
-            // console.log(data?.links)
             data?.links.map((link, index) => {
               if(link.label.charAt(0) != "N" && link.url != null){
               if(link.active ) {
@@ -94,9 +113,12 @@ export default function ServeurPage() {
           </div>
         </div>
         </div>
+          
+        <AddServerModal  refetch={CustomRefetch} />
+        <DetailsServerModal refetch={CustomRefetch} />  
+        <EditServerModal refetch={CustomRefetch} />
 
-
-      
     </div>
+    
   )
 }

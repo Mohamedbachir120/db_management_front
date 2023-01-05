@@ -101,7 +101,7 @@ function Login() {
                } else{
 
                  setError(true); 
-                setTimeout(() => {
+                 setTimeout(() => {
                   setError(false); 
                 }, 1500);
 

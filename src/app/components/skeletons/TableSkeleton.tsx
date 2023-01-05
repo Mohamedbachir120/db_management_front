@@ -9,6 +9,7 @@ function TableSkeleton() {
     <td ></td>
     <td ></td>
     <td ></td>
+    <td ></td>
     <td ></td></tr>);
   return (
     <tbody>

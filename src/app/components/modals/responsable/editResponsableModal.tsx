@@ -1,19 +1,19 @@
 import React from 'react'
-import { Sgbd, useDeleteSgbdMutation, useUpdateSgbdMutation } from '../../../../features/sgbd/sgbd'
+import { Responsable, useDeleteResponsableMutation, useUpdateResponsableMutation } from '../../../../features/responsable/responsable'
 import { faDatabase , faEdit ,  faEraser, faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, Form, Modal } from 'react-bootstrap'
-import sgbdUi, { SgbdUiState, initialize, setName,setVersion,setCreated, setDeleted, setError, showConfirmationMessage } from '../../../../features/sgbd/sgbd-ui'
+import responsableUi, { ResponsableUiState, initialize, setName,setEmail,setCreated, setDeleted, setError, showConfirmationMessage, setPhone } from '../../../../features/responsable/responsable-ui'
 import { useAppDispatch, useAppSelector } from '../../../hooks'
 import ErrorMessage from '../../messages/ErrorMessage'
 import SuccessMessage from '../../messages/SuccessMessage'
 import Loader from '../../Loader'
 
-function EditSgbdModal({refetch}:{refetch:()=>void}) {
-    const uistate = useAppSelector((state:{sgbdUi:SgbdUiState}) => state.sgbdUi);
+function EditResponsableModal({refetch}:{refetch:()=>void}) {
+    const uistate = useAppSelector((state:{responsableUi:ResponsableUiState}) => state.responsableUi);
     const dispatch = useAppDispatch();
 
-    const [updateSgbd,{isLoading}] = useUpdateSgbdMutation();
+    const [updateResponsable,{isLoading}] = useUpdateResponsableMutation();
     
    
     
@@ -26,7 +26,7 @@ function EditSgbdModal({refetch}:{refetch:()=>void}) {
   return (
     <Modal show={uistate.showEdit} onHide={handleClose}   size="lg" centered>
     <Modal.Header className='bg-secondaire' closeButton>
-      <Modal.Title ><FontAwesomeIcon icon={faDatabase} /> Modifier sgbd : {uistate.sgbd.name}</Modal.Title>
+      <Modal.Title ><FontAwesomeIcon icon={faDatabase} /> Modifier responsable : {uistate.responsable.name}</Modal.Title>
       
     </Modal.Header>
     {
@@ -39,25 +39,36 @@ function EditSgbdModal({refetch}:{refetch:()=>void}) {
         
         <Form>
             <Form.Group>
-                <Form.Label>DNS</Form.Label>
+                <Form.Label>Name</Form.Label>
                 <Form.Control
                     type="text"
-                    placeholder='example.naftal.local'
+                    placeholder='Name '
                     
-                    value={uistate.sgbd.name}
+                    value={uistate.responsable.name}
                     onChange={(e)=>{
                        dispatch(setName(e.target.value)) ;
                     }}
                     />
              </Form.Group>   
              <Form.Group>
-                <Form.Label>IP</Form.Label>
+                <Form.Label>Email</Form.Label>
                 <Form.Control
                     type="text"
-                    placeholder='10.96.X.X'
-                    value={uistate.sgbd.version}
+                    placeholder='user@naftal.dz'
+                    value={uistate.responsable.email}
                     onChange={(e)=>{
-                       dispatch(setVersion(e.target.value));
+                       dispatch(setEmail(e.target.value));
+                    }}
+                    />
+             </Form.Group> 
+             <Form.Group>
+                <Form.Label>Phone</Form.Label>
+                <Form.Control
+                    type="text"
+                    placeholder='+213 xx xx xx xx'
+                    value={uistate.responsable.phone}
+                    onChange={(e)=>{
+                       dispatch(setPhone(e.target.value));
                     }}
                     />
              </Form.Group> 
@@ -70,25 +81,19 @@ function EditSgbdModal({refetch}:{refetch:()=>void}) {
         Annuler
       </Button>
       <button className="btn bg-primaire" onClick={async () => {
-          const sgbd = new Sgbd(uistate.sgbd.id,uistate.sgbd.name,uistate.sgbd.version);
-        
-           await updateSgbd(sgbd).then((e) => {
-             
-              if(e.data != null) {
-
-                  dispatch(setCreated());
-                  refetch();
-              }else{
-                 dispatch(setError()) ;
-              }
-              
-              setTimeout(() => {
-                  dispatch(initialize());
-                  
-              }, 2000);
-
-           });
-         
+          const responsable = new Responsable(uistate.responsable.id,uistate.responsable.name,uistate.responsable.email,uistate.responsable.phone);
+          try {
+            const payload = await updateResponsable(responsable).unwrap();
+            dispatch(setCreated());
+            refetch();
+          } catch (error) {
+            dispatch(setError()) ;
+            
+          }
+          setTimeout(() => {
+            dispatch(initialize());
+            
+        }, 2000);
           
          
 
@@ -111,4 +116,4 @@ function EditSgbdModal({refetch}:{refetch:()=>void}) {
   )
 }
 
-export default EditSgbdModal
+export default EditResponsableModal

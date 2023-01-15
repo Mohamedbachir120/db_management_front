@@ -42,7 +42,15 @@ export const store = configureStore({
 
     },
     middleware:(getDefaultMiddleware)=>{
-        return getDefaultMiddleware({serializableCheck:false}).concat(apiSlice.middleware,serveurSlice.middleware,linkedServerSlice.middleware,accessSlice.middleware,sgbdSlice.middleware,accessSlice.middleware,projectSlice.middleware);
+        return getDefaultMiddleware({serializableCheck:false}).concat(
+                apiSlice.middleware,
+                serveurSlice.middleware,
+                linkedServerSlice.middleware,
+                accessSlice.middleware,
+                sgbdSlice.middleware,
+                accessSlice.middleware,
+                projectSlice.middleware
+                ,responsableSlice.middleware);
     }
 
 });

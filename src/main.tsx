@@ -16,6 +16,7 @@ import LinkedServerPage from './app/views/LinkedServerPage'
 import AccessPage from './app/views/AccessPage'
 import SgbdPage from './app/views/SgbdPage'
 import ProjectPage from './app/views/ProjectPage'
+import ResponsablePage from './app/views/ResponsablePage'
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
@@ -59,6 +60,11 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
          <Route path="/project" element={
           <PrivateWrapper>
             <ProjectPage/>
+          </PrivateWrapper>   
+        }/> 
+         <Route path="/responsables" element={
+          <PrivateWrapper>
+            <ResponsablePage/>
           </PrivateWrapper>   
         }/> 
       </Routes>    

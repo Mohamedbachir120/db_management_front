@@ -23,7 +23,7 @@ function DetailsLinkedServerModal({refetch}:{refetch:()=>void}) {
    
 
   return (
-    <Modal show={uistate.showDetail} onHide={handleClose}   size="md" centered>
+    <Modal show={uistate.showDetail} onHide={handleClose}   size="lg" centered>
     <Modal.Header className='bg-secondaire' closeButton>
       <Modal.Title ><FontAwesomeIcon icon={faServer} /> Détails Linked server</Modal.Title>
       
@@ -81,19 +81,19 @@ function DetailsLinkedServerModal({refetch}:{refetch:()=>void}) {
                <FontAwesomeIcon icon={faXmark}  />  Annuler
             </Button>
             <Button variant='primary' className='col-6 mx-2' onClick={async ()=>{
-                    await deleteLinkedServer(uistate.server.id).then((e)=>{
-                        if(e.data != null){
-                            
-                            dispatch(setDeleted());
-                            refetch();
-                        }else{
-                           dispatch(setError()) ;
-                        }
-                        setTimeout(() => {
-                            dispatch(initialize());
-            
-                        }, 2000);
-                    })
+                    try {
+                        const payload = await deleteLinkedServer(uistate.server.id).unwrap();
+                        dispatch(setDeleted());
+                        refetch();
+                    } catch (error) {
+                        dispatch(setError()) ;
+                        
+                    }
+                    setTimeout(() => {
+                        dispatch(initialize());
+        
+                    }, 2000);
+                    
                }}>
                <FontAwesomeIcon icon={faCheck}  /> Supprimer
             </Button>

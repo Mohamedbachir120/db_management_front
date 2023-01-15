@@ -87,6 +87,8 @@ function AddResponsableModal({refetch}:{refetch:()=>void}) {
         </Button>
         <button className="btn bg-primaire" onClick={async () => {
             const responsable = new Responsable(0,name, email,phone);
+            console.log(responsable);
+            
             try {
               const payload = await storeResponsable(responsable).unwrap();
                 dispatch(setCreated());

@@ -104,29 +104,18 @@ function EditServerModal({refetch}:{refetch:()=>void}) {
       </Button>
       <button className="btn bg-primaire" onClick={async () => {
           const server = new Server(uistate.server.id,uistate.server.dns,uistate.server.ip,uistate.server.OSversion,uistate.server.instance_name,uistate.server.port);
-        
-           await updateServer(server).then((e) => {
-             
-              if(e.data != null) {
-
-                  dispatch(setCreated());
-                  refetch();
-              }else{
-                 dispatch(setError()) ;
-              }
-              
-              setTimeout(() => {
-                  dispatch(initialize());
-                  
-              }, 2000);
-
-           });
-         
-          
-         
-
-         
-          
+          try {
+            const payload = await updateServer(server).unwrap();
+            dispatch(setCreated());
+            refetch();
+          } catch (error) {
+            dispatch(setError()) ;
+            
+          }
+          setTimeout(() => {
+            dispatch(initialize());
+            
+          }, 2000);
           
       }}>
         Valider

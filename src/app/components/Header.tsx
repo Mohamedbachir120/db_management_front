@@ -10,7 +10,7 @@ import { Button, Form } from 'react-bootstrap';
 
 
 export default function Header() {
-    const auth = useAppSelector((state) => state.auth);
+    const auth = useAppSelector((state:any) => state.auth);
     
     const [searchVal,setSearchVal] = useState("")
     const dispatch = useAppDispatch(); 

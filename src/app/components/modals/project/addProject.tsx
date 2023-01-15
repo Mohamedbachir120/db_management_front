@@ -74,23 +74,19 @@ function AddProjectModal({refetch}:{refetch:()=>void}) {
         </Button>
         <button className="btn bg-primaire" onClick={async () => {
             const project = new Project(0,name, description);
-            
-             await storeProject(project).then((e) => {
-               
-                if(e.data != null) {
-
-                    dispatch(setCreated());
-                    refetch();
-                }else{
-                   dispatch(setError()) ;
-                }
-                
-                setTimeout(() => {
-                    dispatch(initialize());
-                    
-                }, 2000);
-
-             });
+            try {
+                const payload = await storeProject(project).unwrap();
+                dispatch(setCreated());
+                refetch();
+            } catch (error) {
+                dispatch(setError()) ;
+              
+            }
+            setTimeout(() => {
+              dispatch(initialize());
+              
+          }, 2000);
+           
            
             
             setName("");

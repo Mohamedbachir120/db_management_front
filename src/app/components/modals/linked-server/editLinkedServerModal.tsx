@@ -97,7 +97,7 @@ function EditLinkedServerModal({refetch}:{refetch:()=>void}) {
                       
                 }}>
                   { 
-                  data?.map((server:Server)=>{
+                  data?.data.map((server:Server)=>{
                     if(server.id == uistate.server.source_id){
 
                       return (<option value={server.id} key={server.id} selected >{server.dns}</option>)
@@ -118,7 +118,7 @@ function EditLinkedServerModal({refetch}:{refetch:()=>void}) {
 
                   { 
                   
-                  data?.map((server:Server)=>{
+                  data?.data.map((server:Server)=>{
                     if(server.id == uistate.server.destination_id){
 
                     return (<option value={server.id} key={server.id} selected> {server.dns}</option>)
@@ -140,7 +140,7 @@ function EditLinkedServerModal({refetch}:{refetch:()=>void}) {
 
                   { 
                   
-                  currentData?.map((access:Access)=>{
+                  currentData?.data.map((access:Access)=>{
                     if(access.id == uistate.server.access_id){
 
                       return (<option value={access.id} key={access.id} selected>{access.username}</option>)
@@ -161,23 +161,19 @@ function EditLinkedServerModal({refetch}:{refetch:()=>void}) {
       </Button>
       <button className="btn bg-primaire" onClick={async () => {
             const server = new LinkedServer(uistate.server.id,uistate.server.name,uistate.server.create_method,uistate.server.type,uistate.server.creation_date,initServer,initServer,uistate.server.source_id ,uistate.server.destination_id,uistate.server.access_id);
-        
-           await updateLinkedServer(server).then((e) => {
-             
-              if(e.data != null) {
+          try {
+            const payload =  await updateLinkedServer(server).unwrap();
+            dispatch(setCreated());
+            refetch();
+          } catch (error) {
+            dispatch(setError()) ;
 
-                  dispatch(setCreated());
-                  refetch();
-              }else{
-                 dispatch(setError()) ;
-              }
-              
-              setTimeout(() => {
-                  dispatch(initialize());
-                  
-              }, 2000);
-
-           });
+            
+          }
+          setTimeout(() => {
+            dispatch(initialize());
+            
+        }, 2000);
          
           
          

@@ -1,6 +1,6 @@
 import React from 'react'
-import { Project, useDeleteProjectMutation, useUpdateProjectMutation } from '../../../../features/project/project'
-import { faList , faEdit ,  faEraser, faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { Project,  useUpdateProjectMutation } from '../../../../features/project/project'
+import { faList } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, Form, Modal } from 'react-bootstrap'
 import projectUi, { ProjectUiState, initialize, setName,setDescription,setCreated, setDeleted, setError, showConfirmationMessage } from '../../../../features/project/project-ui'
@@ -71,23 +71,19 @@ function EditProjectModal({refetch}:{refetch:()=>void}) {
       </Button>
       <button className="btn bg-primaire" onClick={async () => {
           const project = new Project(uistate.project.id,uistate.project.name,uistate.project.description);
-        
-           await updateProject(project).then((e) => {
-             
-              if(e.data != null) {
 
-                  dispatch(setCreated());
-                  refetch();
-              }else{
-                 dispatch(setError()) ;
-              }
+            try {
+              const payload = await updateProject(project).unwrap();
+              dispatch(setCreated());
+              refetch()
+            } catch (error) {
+              dispatch(setError()) ;
               
-              setTimeout(() => {
-                  dispatch(initialize());
-                  
-              }, 2000);
-
-           });
+            }
+            setTimeout(() => {
+              dispatch(initialize());
+              
+          }, 2000);
          
           
          

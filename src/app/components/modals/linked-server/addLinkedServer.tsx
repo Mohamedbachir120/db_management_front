@@ -108,9 +108,12 @@ function AddLinkedServerModal({refetch}:{refetch:()=>void}) {
                       
                 }}>
                   { 
-                  data?.map((server:Server)=>{
+                    
+                    
+                  data?.data.map((server:Server)=>{
                     return (<option value={server.id} key={server.id}>{server.dns}</option>)
                   })
+
                     }
                 </Form.Select>
             </Form.Group>
@@ -122,7 +125,7 @@ function AddLinkedServerModal({refetch}:{refetch:()=>void}) {
                 }}>
 
                   { 
-                  data?.map((server:Server)=>{
+                  data?.data.map((server:Server)=>{
                     return (<option value={server.id} key={server.id}>{server.dns}</option>)
                   })
                     }
@@ -137,7 +140,7 @@ function AddLinkedServerModal({refetch}:{refetch:()=>void}) {
                 }}>
 
                   { 
-                  currentData?.map((access:Access)=>{
+                  currentData?.data.map((access:Access)=>{
                     return (<option value={access.id} key={access.id}>{access.username}</option>)
                   })
                     }
@@ -151,34 +154,33 @@ function AddLinkedServerModal({refetch}:{refetch:()=>void}) {
           Annuler
         </Button>
         <button className="btn bg-primaire" onClick={async () => {
+          
           if(source == 0 ){
-            setSource(data[0]?.id);
+            setSource(data?.data[0].id!);
 
           }
           if(destination == 0 ){
-            setDestination(data[0]?.id);
+            setDestination(data?.data[0]?.id!);
           }
           if(access == 0 ){
-            setAccess(currentData[0]?.id);
+            setAccess(currentData?.data[0]?.id!);
           }
             const server = new LinkedServer(0,name,createMethod,type,creationDate,initServer,initServer,source ,destination,access);
             
-             await storeLinkedServer(server).then((e) => {
-               
-                if(e.data != null) {
-
-                    dispatch(setCreated());
-                    refetch();
-                }else{
-                   dispatch(setError()) ;
-                }
-                
-                setTimeout(() => {
-                    dispatch(initialize());
-                    
-                }, 2000);
-
-             });
+            
+          try {
+            const payload = await storeLinkedServer(server).unwrap();
+            dispatch(setCreated());
+              refetch();
+          } catch (error) {
+            dispatch(setError()) ;
+            
+          }
+          setTimeout(() => {
+            dispatch(initialize());
+            
+        }, 2000);
+             
            
             
             setName("");

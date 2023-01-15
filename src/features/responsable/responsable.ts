@@ -50,6 +50,7 @@ export const responsableSlice = createApi({
                 body: {
                     name: credentials.name,
                     email: credentials.email,
+                    phone: credentials.phone
                  
                 },
                 
@@ -71,6 +72,7 @@ export const responsableSlice = createApi({
                 body: {
                     name: responsable.name,
                     email: responsable.email,
+                    phone: responsable.phone
                   
                 },
             }),

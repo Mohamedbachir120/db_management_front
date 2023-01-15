@@ -85,23 +85,18 @@ function EditAccessModal({refetch}:{refetch:()=>void}) {
       </Button>
       <button className="btn bg-primaire" onClick={async () => {
           const access = new Access(uistate.access.id,uistate.access.username,uistate.access.pwd,uistate.access.auth_type);
-        
-           await updateAccess(access).then((e) => {
-             
-              if(e.data != null) {
 
-                  dispatch(setCreated());
+            try {
+              const payload = await updateAccess(access).unwrap();
+              dispatch(setCreated());
                   refetch();
-              }else{
-                 dispatch(setError()) ;
-              }
-              
-              setTimeout(() => {
-                  dispatch(initialize());
-                  
-              }, 2000);
+            } catch (error) {
+              dispatch(setError()) ;
 
-           });
+              
+            }
+
+          
          
           
          

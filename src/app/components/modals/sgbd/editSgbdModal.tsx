@@ -39,7 +39,7 @@ function EditSgbdModal({refetch}:{refetch:()=>void}) {
         
         <Form>
             <Form.Group>
-                <Form.Label>DNS</Form.Label>
+                <Form.Label>Name</Form.Label>
                 <Form.Control
                     type="text"
                     placeholder='example.naftal.local'
@@ -51,7 +51,7 @@ function EditSgbdModal({refetch}:{refetch:()=>void}) {
                     />
              </Form.Group>   
              <Form.Group>
-                <Form.Label>IP</Form.Label>
+                <Form.Label>Version</Form.Label>
                 <Form.Control
                     type="text"
                     placeholder='10.96.X.X'
@@ -71,23 +71,19 @@ function EditSgbdModal({refetch}:{refetch:()=>void}) {
       </Button>
       <button className="btn bg-primaire" onClick={async () => {
           const sgbd = new Sgbd(uistate.sgbd.id,uistate.sgbd.name,uistate.sgbd.version);
-        
-           await updateSgbd(sgbd).then((e) => {
-             
-              if(e.data != null) {
-
-                  dispatch(setCreated());
-                  refetch();
-              }else{
-                 dispatch(setError()) ;
-              }
-              
-              setTimeout(() => {
-                  dispatch(initialize());
-                  
-              }, 2000);
-
-           });
+          try {
+            const payload = await updateSgbd(sgbd).unwrap();
+            dispatch(setCreated());
+            refetch();
+          } catch (error) {
+            dispatch(setError()) ;
+            
+          }
+          setTimeout(() => {
+            dispatch(initialize());
+            
+         }, 2000);
+           
          
           
          

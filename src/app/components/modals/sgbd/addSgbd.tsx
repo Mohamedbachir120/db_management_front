@@ -74,23 +74,20 @@ function AddSgbdModal({refetch}:{refetch:()=>void}) {
         </Button>
         <button className="btn bg-primaire" onClick={async () => {
             const sgbd = new Sgbd(0,name, version);
-            
-             await storeSgbd(sgbd).then((e) => {
-               
-                if(e.data != null) {
+              try {
+                const payload = await storeSgbd(sgbd).unwrap();
 
-                    dispatch(setCreated());
-                    refetch();
-                }else{
-                   dispatch(setError()) ;
-                }
+                dispatch(setCreated());
+                refetch();
+              } catch (error) {
                 
-                setTimeout(() => {
-                    dispatch(initialize());
-                    
-                }, 2000);
-
-             });
+                dispatch(setError()) ;
+              }
+              setTimeout(() => {
+                  dispatch(initialize());
+                  
+              }, 2000);
+             
            
             
             setName("");

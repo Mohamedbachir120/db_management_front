@@ -5,7 +5,7 @@ import { AuthState, setCredentials, signOut } from '../auth/auth-slice';
 import { store } from '../../app/store';
 import { baseUrl } from '../../app/constantes/const';
 
-interface Credential {
+export interface Credential {
     id: number,
     name: string,
     token: string

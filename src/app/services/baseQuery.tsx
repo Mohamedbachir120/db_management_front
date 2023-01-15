@@ -1,8 +1,8 @@
 import { baseUrl } from '../../app/constantes/const';
 import { RootState, store } from '../../app/store';
 import { AuthState, setCredentials, signOut } from './../../features/auth/auth-slice';
-import { BaseQueryFn, FetchArgs, FetchBaseQueryError, fetchBaseQuery } from '@reduxjs/toolkit/dist/query';
-
+import { BaseQueryApi, BaseQueryFn, FetchArgs, FetchBaseQueryError, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { Credential } from '../../features/login/login'; 
 export const baseQuery = fetchBaseQuery({
     baseUrl: baseUrl,
     prepareHeaders: (headers, { getState }) => {
@@ -19,8 +19,9 @@ export const baseQuery = fetchBaseQuery({
     
         return headers
       },
+      
 });
-export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
+export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown , FetchBaseQueryError> = async (
     args,
     api,
     extraOptions
@@ -30,20 +31,24 @@ export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, Fetch
     
     let result = await baseQuery(args, api, extraOptions);
     if (result.error && result.error.status === 401) {
-        const refreshResult = await baseQuery({
-            url: 'auth/refresh/',
-            method: 'POST'
-          }, api, extraOptions);
-
-        if (refreshResult.data) {
-            store.dispatch(setCredentials(new AuthState(true,refreshResult.data?.token,refreshResult.data?.name,refreshResult.data?.id)));
+        const {data} = await baseQuery({
             
+            url: 'auth/refresh/',
+            method: 'POST', 
 
-            // retry the initial query
+          }, api,  extraOptions );
+          try {
+          
+            const credential:Credential = data as Credential;
+            store.dispatch(setCredentials(new AuthState(true,credential.token,credential.name,credential.id)));
+            
             result = await baseQuery(args, api, extraOptions);
-        } else {
+
+          } catch (error) {
             store.dispatch(signOut());
-        }
+            
+          }
+        
     }
     return result;
 };

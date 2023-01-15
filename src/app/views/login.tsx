@@ -92,20 +92,19 @@ function Login() {
             <Button  className='w-100 sign-in' onClick={async () => {
           
           
-        
-              const  result   = await login(loginp);
-              if(result.data != null){
-   
-                dispatch(setCredentials(new AuthState(true,result.data.token,result.data.name,result.data.id)));
-                 window.location.replace("/home");
-               } else{
-
-                 setError(true); 
-                 setTimeout(() => {
-                  setError(false); 
-                }, 1500);
-
+              try {
+                
+                const  {id,name,token}   = await login(loginp).unwrap();
+                dispatch(setCredentials(new AuthState(true,token,name,id)));
+                window.location.replace("/home");
+              } catch (error) {
+                setError(true); 
+                setTimeout(() => {
+                 setError(false); 
+               }, 1500);
+                
               }
+            
            }}>
              Se connecter
              <FontAwesomeIcon icon={faSignInAlt} className="ms-2" />
@@ -124,7 +123,7 @@ function Login() {
 
         </div>
       </main>
-      { error && (<ToastContainer position={position} >
+      { error && (<ToastContainer position={'bottom-end'} >
       <Toast onClose={()=>{setError(false)}} >
         <Toast.Header className='bg-danger text-light'>
           <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />

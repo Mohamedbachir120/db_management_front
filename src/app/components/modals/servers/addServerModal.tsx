@@ -106,24 +106,20 @@ function AddServerModal({refetch}:{refetch:()=>void}) {
           Annuler
         </Button>
         <button className="btn bg-primaire" onClick={async () => {
-            const server = new Server(dns,ip,osVersion,instance,port);
+            const server = new Server(0,dns,ip,osVersion,instance,port);
+            try {
+              const payload = await storeServer(server);
+              dispatch(setCreated());
+              refetch();
+            } catch (error) {
+              dispatch(setError()) ;
+              
+            }
+            setTimeout(() => {
+              dispatch(initialize());
+              
+            }, 2000);
             
-             await storeServer(server).then((e) => {
-               
-                if(e.data != null) {
-
-                    dispatch(setCreated());
-                    refetch();
-                }else{
-                   dispatch(setError()) ;
-                }
-                
-                setTimeout(() => {
-                    dispatch(initialize());
-                    
-                }, 2000);
-
-             });
            
             
             setDns("");

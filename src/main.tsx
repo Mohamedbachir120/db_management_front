@@ -17,6 +17,8 @@ import AccessPage from './app/views/AccessPage'
 import SgbdPage from './app/views/SgbdPage'
 import ProjectPage from './app/views/ProjectPage'
 import ResponsablePage from './app/views/ResponsablePage'
+import { Population } from './features/population/population'
+import PopulationPage from './app/views/PopulationPage'
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
@@ -65,6 +67,11 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
          <Route path="/responsables" element={
           <PrivateWrapper>
             <ResponsablePage/>
+          </PrivateWrapper>   
+        }/> 
+         <Route path="/populations" element={
+          <PrivateWrapper>
+            <PopulationPage />
           </PrivateWrapper>   
         }/> 
       </Routes>    

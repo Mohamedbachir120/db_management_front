@@ -1,12 +1,12 @@
 import { createSlice,PayloadAction } from "@reduxjs/toolkit";
-import { Server } from "./serveur";
-export class ServerUiState{
-    constructor (show:boolean,created:boolean,isError:boolean,showEdit:boolean,showDetail:boolean,server:Server,showConfirmationMessage:boolean,isDeleted:boolean)  {
+import { Project } from "./project";
+export class ProjectUiState{
+    constructor (show:boolean,created:boolean,isError:boolean,showEdit:boolean,showDetail:boolean,project:Project,showConfirmationMessage:boolean,isDeleted:boolean)  {
             this.show = show;
             this.created = created;
             this.isError = isError;
             this.showDetail = showDetail;
-            this.server = server;
+            this.project = project;
             this.showConfirmationMessage = showConfirmationMessage;
             this.isDeleted = isDeleted;
             this.showEdit = showEdit;
@@ -19,12 +19,12 @@ export class ServerUiState{
     showConfirmationMessage:boolean;
     created:boolean;
     isError:boolean;
-    server:Server;
+    project:Project;
     isDeleted:boolean;
   
 }
 
-const initialState:ServerUiState = {
+const initialState:ProjectUiState = {
     show: false ,
     created: false,
     isDeleted:false,
@@ -32,7 +32,7 @@ const initialState:ServerUiState = {
     showDetail: false,
     showEdit:false,
     showConfirmationMessage:false,
-    server: new Server(0,"","","","","")
+    project: new Project(0,"","")
 
 
     
@@ -41,8 +41,8 @@ const initialState:ServerUiState = {
   
 };
 
-const serverUiSlice = createSlice({
-    name: "serverUi",
+const projectUiSlice = createSlice({
+    name: "projectUi",
     initialState,
     reducers: {
         show (state)  {
@@ -52,7 +52,7 @@ const serverUiSlice = createSlice({
            
         },
         showDetail(state,action){
-            state.server = action.payload;
+            state.project = action.payload;
             state.showDetail = true;
         },
         showEdit(state){
@@ -89,26 +89,18 @@ const serverUiSlice = createSlice({
            
             state.showConfirmationMessage = true;
         },
-        setDns(state,action){
-            state.server.dns = action.payload;
+        setName(state,action){
+            state.project.name = action.payload;
         },
-        setPort(state,action){
-            state.server.port = action.payload;
+        setDescription(state,action){
+            state.project.description = action.payload;
         },
-        setIp(state,action){
-            state.server.ip = action.payload;
-        },
-        setOSVersion(state,action){
-            state.server.OSversion = action.payload;
-        },
-        setInstance(state,action){
-            state.server.instance_name = action.payload;
-        }
+       
         
     }
 })
 
-export const { show , hide ,setDns,setInstance,setIp,setOSVersion,setPort  ,showEdit, setCreated , initialize,setError,showDetail,hideDetail,showConfirmationMessage,setDeleted } = serverUiSlice.actions;
-export default serverUiSlice.reducer;
+export const { show , hide ,setName,setDescription,showEdit, setCreated , initialize,setError,showDetail,hideDetail,showConfirmationMessage,setDeleted } = projectUiSlice.actions;
+export default projectUiSlice.reducer;
 
 

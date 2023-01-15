@@ -1,19 +1,19 @@
 import React from 'react'
-import { Server, useDeleteServerMutation } from '../../../features/serveur/serveur'
-import { faServer , faEdit ,  faEraser, faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { Sgbd, useDeleteSgbdMutation } from '../../../../features/sgbd/sgbd'
+import { faDatabase , faEdit ,  faEraser, faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, Modal } from 'react-bootstrap'
-import serverUi, { ServerUiState, initialize, setDeleted,showEdit , setError, showConfirmationMessage, hideDetail } from '../../../features/serveur/server-ui'
-import { useAppDispatch, useAppSelector } from '../../hooks'
-import ErrorMessage from '../messages/ErrorMessage'
-import SuccessMessage from '../messages/SuccessMessage'
-import Loader from '../Loader'
+import sgbdUi, { SgbdUiState, initialize, setDeleted,showEdit , setError, showConfirmationMessage, hideDetail } from '../../../../features/sgbd/sgbd-ui'
+import { useAppDispatch, useAppSelector } from '../../../hooks'
+import ErrorMessage from '../../messages/ErrorMessage'
+import SuccessMessage from '../../messages/SuccessMessage'
+import Loader from '../../Loader'
 
-function DetailsServerModal({refetch}:{refetch:()=>void}) {
-    const uistate = useAppSelector((state:{serverUi:ServerUiState}) => state.serverUi);
+function DetailsSgbdModal({refetch}:{refetch:()=>void}) {
+    const uistate = useAppSelector((state:{sgbdUi:SgbdUiState}) => state.sgbdUi);
     const dispatch = useAppDispatch();
 
-    const [deleteServer,{isLoading,isError,isSuccess,reset}] = useDeleteServerMutation();
+    const [deleteSgbd,{isLoading,isError,isSuccess,reset}] = useDeleteSgbdMutation();
     
     function handleClose(){
         dispatch(initialize());
@@ -24,7 +24,7 @@ function DetailsServerModal({refetch}:{refetch:()=>void}) {
   return (
     <Modal show={uistate.showDetail} onHide={handleClose}   size="md" centered>
     <Modal.Header className='bg-secondaire' closeButton>
-      <Modal.Title ><FontAwesomeIcon icon={faServer} /> Détails serveur</Modal.Title>
+      <Modal.Title ><FontAwesomeIcon icon={faDatabase} /> Détails Sgbd</Modal.Title>
       
     </Modal.Header>
     {
@@ -34,20 +34,12 @@ function DetailsServerModal({refetch}:{refetch:()=>void}) {
     !uistate.showConfirmationMessage ?
     <Modal.Body>
         <ul className='list-unstyled card'>
-            <li className='list-style-none'> <span className='text-green fw-bold'>DNS : &nbsp;</span>   
-                {uistate.server.dns}</li>
+            <li className='list-style-none'> <span className='text-green fw-bold'>Name : &nbsp;</span>   
+                {uistate.sgbd.name}</li>
 
-            <li className='list-style-none'> <span className='text-green fw-bold'>IP : &nbsp;</span>   
-            {uistate.server.ip}</li>
+            <li className='list-style-none'> <span className='text-green fw-bold'>Version : &nbsp;</span>   
+            {uistate.sgbd.version}</li>
 
-            <li className='list-style-none'> <span className='text-green fw-bold'>Instance name : &nbsp;</span>   
-                {uistate.server.instance_name}</li>
-
-            <li className='list-style-none'> <span className='text-green fw-bold'>OS Version : &nbsp;</span>   
-            {uistate.server.OSversion}</li>     
-
-             <li className='list-style-none'> <span className='text-green fw-bold'>Port : &nbsp;</span>   
-            {uistate.server.port}</li>    
                 
         </ul>
         <div className='d-flex flex-row justify-content-between col-11'>
@@ -70,7 +62,7 @@ function DetailsServerModal({refetch}:{refetch:()=>void}) {
      : ( 
         <Modal.Body>
             <h5 className='text-center'>Êtes vous sûre ?</h5>
-            <p className='text-center'>La suppression d'un serveur , supprimera tous les objets liés Linked Server ,BDD, Users , Accès .. </p>
+            <p className='text-center'>La suppression d'un sgbd , supprimera tous les objets liés Linked Sgbd ,BDD, Users , Accès .. </p>
             <div className='d-flex flex-row justify-content-between col-11'>
             <Button variant='secondary' className='col-6 mx-2' onClick={()=>{
                 dispatch(initialize());
@@ -78,7 +70,7 @@ function DetailsServerModal({refetch}:{refetch:()=>void}) {
                <FontAwesomeIcon icon={faXmark}  />  Annuler
             </Button>
             <Button variant='primary' className='col-6 mx-2' onClick={async ()=>{
-                    await deleteServer(uistate.server.id).then((e)=>{
+                    await deleteSgbd(uistate.sgbd.id).then((e)=>{
                         if(e.data != null){
                             
                             dispatch(setDeleted());
@@ -106,4 +98,4 @@ function DetailsServerModal({refetch}:{refetch:()=>void}) {
   )
 }
 
-export default DetailsServerModal
+export default DetailsSgbdModal

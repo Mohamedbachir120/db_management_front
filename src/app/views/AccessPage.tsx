@@ -1,23 +1,23 @@
 import React from 'react'
-import  Navbar  from './../components/Navbar'
+import  Navbar  from '../components/Navbar'
 import Header from '../components/Header'
-import { useFetchServersQuery,Server } from '../../features/serveur/serveur' 
+import { useFetchAccesssQuery,Access } from '../../features/access/access' 
 import { Button, Form, Modal } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAdd, faServer } from '@fortawesome/free-solid-svg-icons';
+import { faAdd, faKey } from '@fortawesome/free-solid-svg-icons';
 import TableSkeleton from '../components/skeletons/TableSkeleton';
-import AddServerModal from '../components/modals/servers/addServerModal';
-import DetailsServerModal from '../components/modals/sgbd/detailsSgbdModal';
 import { useAppDispatch } from '../hooks';
-import {  show, showDetail } from '../../features/serveur/server-ui';
-import EditServerModal from '../components/modals/sgbd/editSgbdModal';
+import {  show, showDetail } from '../../features/access/access-ui';
+import AddAccessModal from '../components/modals/access/addAccess';
+import DetailsAccessModal from '../components/modals/access/detailsAccess';
+import EditAccessModal from '../components/modals/access/editAccess';
 
-export default function ServeurPage() {
+export default function AccessPage() {
 
   const [keyword, setKeyword] = React.useState("");
   const [page,setPage] = React.useState(1);
 
-  const { data,isFetching,refetch } = useFetchServersQuery({keyword,page});
+  const { data,isFetching,refetch } = useFetchAccesssQuery({keyword,page});
   const dispatch = useAppDispatch();
 
   function CustomRefetch(){
@@ -27,19 +27,19 @@ export default function ServeurPage() {
   return (
     <div className='d-flex flex-row'>
       <div className='col-3'>
-      <Navbar active={"serveur"} />
+      <Navbar active={"access"} />
 
       </div>
       <div className='col-9 pb-5'>
         <Header />
         <div className="card me-5 p-3 shadow">
-        <h2 className="text-green"><FontAwesomeIcon icon={faServer} /> Serveurs</h2>
+        <h2 className="text-green"><FontAwesomeIcon icon={faKey} /> Accès</h2>
 
           <div className='d-flex flex-row my-3'>
         
 
           <div className='col-9 me-4 '>
-            <Form.Control type="text" placeholder="Nom du serveur ,IP , PORT ..." onChange={(e)=>{
+            <Form.Control type="text" placeholder="Username , Auth type ..." onChange={(e)=>{
               setKeyword(e.target.value);
               
             }} />
@@ -47,7 +47,7 @@ export default function ServeurPage() {
           </div>
           <div>
           
-            <button className='btn bg-secondaire' onClick={() =>{dispatch(show()); }}> <FontAwesomeIcon icon={faAdd} /> Ajouter un nouveau serveur</button>
+            <button className='btn bg-secondaire' onClick={() =>{dispatch(show()); }}> <FontAwesomeIcon icon={faAdd} /> Ajouter un accès</button>
 
           </div>
           </div>
@@ -55,12 +55,10 @@ export default function ServeurPage() {
           <table className='table table-striped'>
             <thead >
               <tr className='bg-primaire'>
-                <td>DNS</td>
-                <td>IP</td>
-                <td>Instance name</td>
-                <td>Port</td>
-                <td>OS</td>
-                <td>Nombre de bdd</td>    
+                <td>Username</td>
+                <td>Password</td>
+                <td>Auth type</td>
+                  
 
                 <td>Détails</td>          
               </tr>
@@ -70,19 +68,17 @@ export default function ServeurPage() {
              {!isFetching ?
            ( <tbody>
               
-            {  data?.data.map((server:Server) => {
+            {  data?.data.map((access:Access) => {
              
 
-              return (<tr key={server.id}>
-                <td>{server.dns}</td>
-                <td>{server.ip}</td>
-                <td>{server.instance_name}</td>
-                <td>{server.port}</td>
-                <td>{server.OSversion}</td>
-                <td>{server.bdds_count}</td>
+              return (<tr key={access.id}>
+                <td>{access.username}</td>
+                <td>{""}</td>
+                <td>{access.auth_type == 0 ?"SQl Server authentication":"Windows Authentication"}</td>
+               
                 <td><Button className='bg-secondaire' onClick={()=>{
                   
-                  dispatch(showDetail(server));
+                  dispatch(showDetail(access));
 
                 }}>Détails</Button></td>
 
@@ -90,7 +86,7 @@ export default function ServeurPage() {
               </tr>)
               
             }) }
-            </tbody> ) : (<TableSkeleton data={7} />)} 
+            </tbody> ) : (<TableSkeleton data={4}/>)} 
             
 
           </table>
@@ -114,9 +110,9 @@ export default function ServeurPage() {
         </div>
         </div>
           
-        <AddServerModal  refetch={CustomRefetch} />
-        <DetailsServerModal refetch={CustomRefetch} />  
-        <EditServerModal refetch={CustomRefetch} />
+       <AddAccessModal  refetch={CustomRefetch} />
+         <DetailsAccessModal refetch={CustomRefetch} />  
+        <EditAccessModal refetch={CustomRefetch} />
 
     </div>
     

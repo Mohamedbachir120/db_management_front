@@ -32,8 +32,8 @@ export default function Navbar({active }:{active:string}) {
         <li className={ "sgbd" == active ? 'active' : "" }>
           <Link to="/sgbd"><FontAwesomeIcon icon={faDatabase} /> SGBD</Link>
         </li>
-        <li className={ "projets" == active ? 'active' : "" }>
-          <Link to="/projets"><FontAwesomeIcon icon={faListCheck} /> Projets</Link>
+        <li className={ "project" == active ? 'active' : "" }>
+          <Link to="/project"><FontAwesomeIcon icon={faListCheck} /> Projets</Link>
         </li>
         <li className={ "responsables" == active ? 'active' : "" }>
           <Link to="/responsables"><FontAwesomeIcon icon={faPerson} /> Responsable</Link>

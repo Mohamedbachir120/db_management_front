@@ -1,13 +1,13 @@
 import React from 'react'
-import { Server, useDeleteServerMutation, useUpdateServerMutation } from '../../../features/serveur/serveur'
+import { Server, useDeleteServerMutation, useUpdateServerMutation } from '../../../../features/serveur/serveur'
 import { faServer , faEdit ,  faEraser, faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, Form, Modal } from 'react-bootstrap'
-import serverUi, { ServerUiState, initialize, setDns,setInstance,setIp,setOSVersion,setPort,setCreated, setDeleted, setError, showConfirmationMessage } from '../../../features/serveur/server-ui'
-import { useAppDispatch, useAppSelector } from '../../hooks'
-import ErrorMessage from '../messages/ErrorMessage'
-import SuccessMessage from '../messages/SuccessMessage'
-import Loader from '../Loader'
+import serverUi, { ServerUiState, initialize, setDns,setInstance,setIp,setOSVersion,setPort,setCreated, setDeleted, setError, showConfirmationMessage } from '../../../../features/serveur/server-ui'
+import { useAppDispatch, useAppSelector } from '../../../hooks'
+import ErrorMessage from '../../messages/ErrorMessage'
+import SuccessMessage from '../../messages/SuccessMessage'
+import Loader from '../../Loader'
 
 function EditServerModal({refetch}:{refetch:()=>void}) {
     const uistate = useAppSelector((state:{serverUi:ServerUiState}) => state.serverUi);

@@ -1,7 +1,11 @@
 import { createSlice,PayloadAction } from "@reduxjs/toolkit";
-import { Server } from "./serveur";
-export class ServerUiState{
-    constructor (show:boolean,created:boolean,isError:boolean,showEdit:boolean,showDetail:boolean,server:Server,showConfirmationMessage:boolean,isDeleted:boolean)  {
+import { LinkedServer } from "./linked-server";
+import { Server } from "../serveur/serveur";
+
+
+export const initServer = new Server(0,"","","","","");
+export class LinkedServerUiState{
+    constructor (show:boolean,created:boolean,isError:boolean,showEdit:boolean,showDetail:boolean,server:LinkedServer,showConfirmationMessage:boolean,isDeleted:boolean)  {
             this.show = show;
             this.created = created;
             this.isError = isError;
@@ -19,12 +23,13 @@ export class ServerUiState{
     showConfirmationMessage:boolean;
     created:boolean;
     isError:boolean;
-    server:Server;
+    server:LinkedServer;
     isDeleted:boolean;
   
 }
 
-const initialState:ServerUiState = {
+
+const initialState:LinkedServerUiState = {
     show: false ,
     created: false,
     isDeleted:false,
@@ -32,7 +37,7 @@ const initialState:ServerUiState = {
     showDetail: false,
     showEdit:false,
     showConfirmationMessage:false,
-    server: new Server(0,"","","","","")
+    server: new LinkedServer(0,"","","","",initServer,initServer,0,0,0)
 
 
     
@@ -41,8 +46,8 @@ const initialState:ServerUiState = {
   
 };
 
-const serverUiSlice = createSlice({
-    name: "serverUi",
+const linkedServerUiSlice = createSlice({
+    name: "linkedServerUi",
     initialState,
     reducers: {
         show (state)  {
@@ -79,7 +84,27 @@ const serverUiSlice = createSlice({
         setDeleted(state){
             state.isDeleted = true;
         },
-        
+        setName(state,action){
+            state.server.name = action.payload;
+        },
+        setType(state,action){
+            state.server.type = action.payload;
+        },
+        setCreationDate(state,action){
+            state.server.creation_date = action.payload;
+        },
+        setCreateMethod(state,action){
+            state.server.create_method = action.payload;
+        },
+        setSource(state,action){
+            state.server.source_id = action.payload;
+        },
+        setDestination(state,action){
+            state.server.destination_id = action.payload;
+        },
+        setAccess(state,action){
+            state.server.access_id = action.payload;
+        },
         hide (state)  {
             
             state.show = false;
@@ -89,26 +114,12 @@ const serverUiSlice = createSlice({
            
             state.showConfirmationMessage = true;
         },
-        setDns(state,action){
-            state.server.dns = action.payload;
-        },
-        setPort(state,action){
-            state.server.port = action.payload;
-        },
-        setIp(state,action){
-            state.server.ip = action.payload;
-        },
-        setOSVersion(state,action){
-            state.server.OSversion = action.payload;
-        },
-        setInstance(state,action){
-            state.server.instance_name = action.payload;
-        }
+        
         
     }
 })
 
-export const { show , hide ,setDns,setInstance,setIp,setOSVersion,setPort  ,showEdit, setCreated , initialize,setError,showDetail,hideDetail,showConfirmationMessage,setDeleted } = serverUiSlice.actions;
-export default serverUiSlice.reducer;
+export const { show , hide   ,showEdit,setName,setType,setCreateMethod,setCreationDate, setAccess , setDestination , setSource ,setCreated , initialize,setError,showDetail,hideDetail,showConfirmationMessage,setDeleted } = linkedServerUiSlice.actions;
+export default linkedServerUiSlice.reducer;
 
 

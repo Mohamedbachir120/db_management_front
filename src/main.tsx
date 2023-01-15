@@ -13,6 +13,9 @@ import PrivateWrapper from './hoc/Protected'
 import PublicWrapper from './hoc/UnProtected'
 import ServeurPage from './app/views/ServeurPage'
 import LinkedServerPage from './app/views/LinkedServerPage'
+import AccessPage from './app/views/AccessPage'
+import SgbdPage from './app/views/SgbdPage'
+import ProjectPage from './app/views/ProjectPage'
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
@@ -38,11 +41,26 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
             <ServeurPage/>
           </PrivateWrapper>   
         }/>   
+         <Route path="/access" element={
+          <PrivateWrapper>
+            <AccessPage/>
+          </PrivateWrapper>   
+        }/>   
+         <Route path="/sgbd" element={
+          <PrivateWrapper>
+            <SgbdPage/>
+          </PrivateWrapper>   
+        }/>
         <Route path="/linked-servers" element={
           <PrivateWrapper>
             <LinkedServerPage/>
           </PrivateWrapper>   
         }/>   
+         <Route path="/project" element={
+          <PrivateWrapper>
+            <ProjectPage/>
+          </PrivateWrapper>   
+        }/> 
       </Routes>    
     </BrowserRouter>
         

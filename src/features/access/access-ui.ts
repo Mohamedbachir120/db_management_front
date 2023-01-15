@@ -1,12 +1,12 @@
 import { createSlice,PayloadAction } from "@reduxjs/toolkit";
-import { Server } from "./serveur";
-export class ServerUiState{
-    constructor (show:boolean,created:boolean,isError:boolean,showEdit:boolean,showDetail:boolean,server:Server,showConfirmationMessage:boolean,isDeleted:boolean)  {
+import { Access } from "./access";
+export class AccessUiState{
+    constructor (show:boolean,created:boolean,isError:boolean,showEdit:boolean,showDetail:boolean,access:Access,showConfirmationMessage:boolean,isDeleted:boolean)  {
             this.show = show;
             this.created = created;
             this.isError = isError;
             this.showDetail = showDetail;
-            this.server = server;
+            this.access = access;
             this.showConfirmationMessage = showConfirmationMessage;
             this.isDeleted = isDeleted;
             this.showEdit = showEdit;
@@ -19,12 +19,12 @@ export class ServerUiState{
     showConfirmationMessage:boolean;
     created:boolean;
     isError:boolean;
-    server:Server;
+    access:Access;
     isDeleted:boolean;
   
 }
 
-const initialState:ServerUiState = {
+const initialState:AccessUiState = {
     show: false ,
     created: false,
     isDeleted:false,
@@ -32,7 +32,7 @@ const initialState:ServerUiState = {
     showDetail: false,
     showEdit:false,
     showConfirmationMessage:false,
-    server: new Server(0,"","","","","")
+    access: new Access(0,"","",0)
 
 
     
@@ -41,8 +41,8 @@ const initialState:ServerUiState = {
   
 };
 
-const serverUiSlice = createSlice({
-    name: "serverUi",
+const accessUiSlice = createSlice({
+    name: "accessUi",
     initialState,
     reducers: {
         show (state)  {
@@ -52,7 +52,7 @@ const serverUiSlice = createSlice({
            
         },
         showDetail(state,action){
-            state.server = action.payload;
+            state.access = action.payload;
             state.showDetail = true;
         },
         showEdit(state){
@@ -89,26 +89,20 @@ const serverUiSlice = createSlice({
            
             state.showConfirmationMessage = true;
         },
-        setDns(state,action){
-            state.server.dns = action.payload;
+        setUsername(state,action){
+            state.access.username = action.payload;
         },
-        setPort(state,action){
-            state.server.port = action.payload;
+        setPwd(state,action){
+            state.access.pwd = action.payload;
         },
-        setIp(state,action){
-            state.server.ip = action.payload;
-        },
-        setOSVersion(state,action){
-            state.server.OSversion = action.payload;
-        },
-        setInstance(state,action){
-            state.server.instance_name = action.payload;
+        setAuthType(state,action){
+            state.access.auth_type = action.payload;
         }
         
     }
 })
 
-export const { show , hide ,setDns,setInstance,setIp,setOSVersion,setPort  ,showEdit, setCreated , initialize,setError,showDetail,hideDetail,showConfirmationMessage,setDeleted } = serverUiSlice.actions;
-export default serverUiSlice.reducer;
+export const { show , hide ,setUsername,setPwd,setAuthType,showEdit, setCreated , initialize,setError,showDetail,hideDetail,showConfirmationMessage,setDeleted } = accessUiSlice.actions;
+export default accessUiSlice.reducer;
 
 

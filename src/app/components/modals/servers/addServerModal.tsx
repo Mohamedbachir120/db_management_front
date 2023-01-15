@@ -1,13 +1,13 @@
 import React from 'react'
 import { Button,Form,Modal } from 'react-bootstrap'
-import { ServerUiState, hide, initialize, setCreated, setError } from '../../../features/serveur/server-ui';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { ServerUiState, hide, initialize, setCreated, setError } from '../../../../features/serveur/server-ui';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faServer, faCheck } from '@fortawesome/free-solid-svg-icons';
-import { Server, useStoreServerMutation ,  } from '../../../features/serveur/serveur';
-import SuccessMessage from '../messages/SuccessMessage';
-import Loader from '../Loader';
-import ErrorMessage from '../messages/ErrorMessage';
+import { Server, useStoreServerMutation ,  } from '../../../../features/serveur/serveur';
+import SuccessMessage from '../../messages/SuccessMessage';
+import Loader from '../../Loader';
+import ErrorMessage from '../../messages/ErrorMessage';
 
 function AddServerModal({refetch}:{refetch:()=>void}) {
     const uistate = useAppSelector((state:{serverUi:ServerUiState}) => state.serverUi);

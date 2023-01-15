@@ -2,15 +2,16 @@ import React from 'react'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import "./../../../dashboard.css";
 
-function TableSkeleton() {
-    const row = ( <tr className='skeleton py-2 '>
-    <td > <br /> </td>
-    <td ></td>
-    <td ></td>
-    <td ></td>
-    <td ></td>
-    <td ></td>
-    <td ></td></tr>);
+const  TableSkeleton:React.FC<{data:number}> = ({data=10}) => {
+  const tab = Array(data).fill(0)
+    
+    const row = (
+       <tr className='skeleton py-2 '>
+        {
+          tab.map((row,index)=>{return (<td key={index} > <br/>  </td>)} )
+        }
+   
+    </tr>);
   return (
     <tbody>
        {row}

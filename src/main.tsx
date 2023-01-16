@@ -19,6 +19,7 @@ import ProjectPage from './app/views/ProjectPage'
 import ResponsablePage from './app/views/ResponsablePage'
 import { Population } from './features/population/population'
 import PopulationPage from './app/views/PopulationPage'
+import BddPage from './app/views/BddPage'
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
@@ -72,6 +73,11 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
          <Route path="/populations" element={
           <PrivateWrapper>
             <PopulationPage />
+          </PrivateWrapper>   
+        }/> 
+        <Route path="/bdd" element={
+          <PrivateWrapper>
+            <BddPage />
           </PrivateWrapper>   
         }/> 
       </Routes>    

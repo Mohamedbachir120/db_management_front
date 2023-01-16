@@ -1,23 +1,26 @@
 import React from 'react'
 import  Navbar  from '../components/Navbar'
 import Header from '../components/Header'
-import { useFetchAccesssQuery,Access } from '../../features/access/access' 
+import { useFetchServersQuery,Server } from '../../features/serveur/serveur' 
 import { Button, Form, Modal } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAdd, faKey } from '@fortawesome/free-solid-svg-icons';
+import { faAdd, faDatabase } from '@fortawesome/free-solid-svg-icons';
 import TableSkeleton from '../components/skeletons/TableSkeleton';
-import { useAppDispatch } from '../hooks';
-import {  show, showDetail } from '../../features/access/access-ui';
-import AddAccessModal from '../components/modals/access/addAccess';
-import DetailsAccessModal from '../components/modals/access/detailsAccess';
-import EditAccessModal from '../components/modals/access/editAccess';
 
-export default function AccessPage() {
+import { useAppDispatch } from '../hooks';
+import {  show, showDetail } from '../../features/bdd/bdd-ui';
+import {  Bdd, useFetchBddsQuery } from '../../features/bdd/bdd';
+import AddBddModal from '../components/modals/bdd/addBdd';
+import DetailsBddModal from '../components/modals/bdd/detailsBddModal';
+import EditBddModal from '../components/modals/bdd/editBddModal';
+
+export default function BddPage() {
 
   const [keyword, setKeyword] = React.useState("");
   const [page,setPage] = React.useState(1);
+  
 
-  const { data,isFetching,refetch } = useFetchAccesssQuery({keyword,page});
+  const { data,isFetching,refetch } = useFetchBddsQuery({keyword,page});
   const dispatch = useAppDispatch();
 
   function CustomRefetch(){
@@ -27,27 +30,28 @@ export default function AccessPage() {
   return (
     <div className='d-flex flex-row'>
       <div className='col-3'>
-      <Navbar active={"access"} />
+      <Navbar active={"bdd"} />
 
       </div>
       <div className='col-9 pb-5'>
         <Header />
         <div className="card me-5 p-3 shadow">
-        <h2 className="text-green"><FontAwesomeIcon icon={faKey} /> Accès</h2>
+        <h2 className="text-green"><FontAwesomeIcon icon={faDatabase} /> BDD</h2>
 
           <div className='d-flex flex-row my-3'>
         
 
           <div className='col-9 me-4 '>
-            <Form.Control type="text" placeholder="Username , Auth type ..." onChange={(e)=>{
+            <Form.Control type="text" placeholder="Nom de la base de donnés status ..." onChange={(e)=>{
               setKeyword(e.target.value);
+              setPage(1);
               
             }} />
 
           </div>
           <div>
           
-            <button className='btn bg-secondaire' onClick={() =>{dispatch(show()); }}> <FontAwesomeIcon icon={faAdd} /> Ajouter un accès</button>
+            <button className='btn bg-secondaire' onClick={() =>{dispatch(show()); }}> <FontAwesomeIcon icon={faAdd} /> Ajouter une nouvele base de données</button>
 
           </div>
           </div>
@@ -55,11 +59,11 @@ export default function AccessPage() {
           <table className='table table-striped'>
             <thead >
               <tr className='bg-primaire'>
-                <td>Username</td>
-                <td>Password</td>
-                <td>Auth type</td>
-                  
-
+                <td>Nom</td>
+                <td>Serveur</td>
+                <td>Sgbd</td>
+                <td>Status</td>
+                <td>Engine</td>
                 <td>Détails</td>          
               </tr>
             </thead>
@@ -68,17 +72,18 @@ export default function AccessPage() {
              {!isFetching ?
            ( <tbody>
               
-            {  data?.data.map((access:Access) => {
+            {  data?.data.map((bdd:Bdd) => {
              
 
-              return (<tr key={access.id}>
-                <td>{access.username}</td>
-                <td>{""}</td>
-                <td>{access.auth_type == 0 ?"SQl Server authentication":"Windows Authentication"}</td>
-               
+              return (<tr key={bdd.id}>
+                <td>{bdd.name}</td>
+                <td>{bdd.server.dns}</td>
+                <td>{bdd.sgbd.name}</td>
+                <td>{bdd.status}</td>
+                <td>{bdd.engine}</td>
                 <td><Button className='bg-secondaire' onClick={()=>{
                   
-                  dispatch(showDetail(access));
+                  dispatch(showDetail(bdd));
 
                 }}>Détails</Button></td>
 
@@ -86,7 +91,7 @@ export default function AccessPage() {
               </tr>)
               
             }) }
-            </tbody> ) : (<TableSkeleton data={4}/>)} 
+            </tbody> ) : (<TableSkeleton  data={6} />)} 
             
 
           </table>
@@ -110,9 +115,9 @@ export default function AccessPage() {
         </div>
         </div>
           
-       <AddAccessModal  refetch={CustomRefetch} />
-         <DetailsAccessModal refetch={CustomRefetch} />  
-        <EditAccessModal refetch={CustomRefetch} />
+         <AddBddModal  refetch={CustomRefetch} />
+         <DetailsBddModal refetch={CustomRefetch} />  
+         <EditBddModal refetch={CustomRefetch} />
 
     </div>
     

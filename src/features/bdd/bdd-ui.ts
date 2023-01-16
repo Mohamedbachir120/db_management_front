@@ -1,14 +1,17 @@
 import { createSlice,PayloadAction } from "@reduxjs/toolkit";
-import { Sgbd } from "./sgbd";
+import { Bdd } from "./bdd";
+import { Server } from "../serveur/serveur";
+import { initSgbd } from "../sgbd/sgbd-ui";
 
-export const initSgbd = new Sgbd(0,"","");
-export class SgbdUiState{
-    constructor (show:boolean,created:boolean,isError:boolean,showEdit:boolean,showDetail:boolean,sgbd:Sgbd,showConfirmationMessage:boolean,isDeleted:boolean)  {
+
+export const initServer = new Server(0,"","","","","");
+export class BddUiState{
+    constructor (show:boolean,created:boolean,isError:boolean,showEdit:boolean,showDetail:boolean,bdd:Bdd,showConfirmationMessage:boolean,isDeleted:boolean)  {
             this.show = show;
             this.created = created;
             this.isError = isError;
             this.showDetail = showDetail;
-            this.sgbd = sgbd;
+            this.bdd = bdd;
             this.showConfirmationMessage = showConfirmationMessage;
             this.isDeleted = isDeleted;
             this.showEdit = showEdit;
@@ -21,12 +24,13 @@ export class SgbdUiState{
     showConfirmationMessage:boolean;
     created:boolean;
     isError:boolean;
-    sgbd:Sgbd;
+    bdd:Bdd;
     isDeleted:boolean;
   
 }
 
-const initialState:SgbdUiState = {
+
+const initialState:BddUiState = {
     show: false ,
     created: false,
     isDeleted:false,
@@ -34,7 +38,7 @@ const initialState:SgbdUiState = {
     showDetail: false,
     showEdit:false,
     showConfirmationMessage:false,
-    sgbd: new Sgbd(0,"","")
+    bdd: new Bdd(0,"","","","",initServer,initSgbd,0,0)
 
 
     
@@ -43,8 +47,8 @@ const initialState:SgbdUiState = {
   
 };
 
-const sgbdUiSlice = createSlice({
-    name: "sgbdUi",
+const bddUiSlice = createSlice({
+    name: "bddUi",
     initialState,
     reducers: {
         show (state)  {
@@ -54,7 +58,7 @@ const sgbdUiSlice = createSlice({
            
         },
         showDetail(state,action){
-            state.sgbd = action.payload;
+            state.bdd = action.payload;
             state.showDetail = true;
         },
         showEdit(state){
@@ -81,6 +85,24 @@ const sgbdUiSlice = createSlice({
         setDeleted(state){
             state.isDeleted = true;
         },
+        setName(state,action){
+            state.bdd.name = action.payload;
+        },
+        setStatus(state,action){
+            state.bdd.status = action.payload;
+        },
+        setCreationDate(state,action){
+            state.bdd.creation_date = action.payload;
+        },
+        setEngine(state,action){
+            state.bdd.engine = action.payload;
+        },
+        setServer(state,action){
+            state.bdd.server_id = action.payload;
+        },
+        setSgbd(state,action){
+            state.bdd.sgbd_id = action.payload;
+        },
         
         hide (state)  {
             
@@ -91,18 +113,12 @@ const sgbdUiSlice = createSlice({
            
             state.showConfirmationMessage = true;
         },
-        setName(state,action){
-            state.sgbd.name = action.payload;
-        },
-        setVersion(state,action){
-            state.sgbd.version = action.payload;
-        },
-       
+        
         
     }
 })
 
-export const { show , hide ,setName,setVersion,showEdit, setCreated , initialize,setError,showDetail,hideDetail,showConfirmationMessage,setDeleted } = sgbdUiSlice.actions;
-export default sgbdUiSlice.reducer;
+export const { show , hide   ,showEdit,setName,setStatus,setEngine,setCreationDate , setSgbd , setServer ,setCreated , initialize,setError,showDetail,hideDetail,showConfirmationMessage,setDeleted } = bddUiSlice.actions;
+export default bddUiSlice.reducer;
 
 

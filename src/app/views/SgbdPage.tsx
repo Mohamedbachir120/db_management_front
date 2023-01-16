@@ -91,17 +91,17 @@ export default function SgbdPage() {
 
           </table>
           <div className='d-flex flex-row justify-content-start'>
-          
-          {           
+                    {        
+                       
             data?.links.map((link, index) => {
-              if(link.label.charAt(0) != "N" && link.url != null){
+              if(link.label.charAt(0) != "N" && link.label.charAt(0) != "&" && link.url != null){
               if(link.active ) {
               
                 return <button key={index} className="btn btn-primary mx-2" 
-                onClick={(e)=> setPage(parseInt(link.label))} >{index}</button>
+                onClick={(e)=> setPage(parseInt(link.label))} >{index == 0 ? index +1 : index }</button>
               }
               return <button key={index} className="btn btn-secondary mx-2"
-              onClick={(e)=> setPage(parseInt(link.label))}>{index}</button>
+              onClick={(e)=> setPage(parseInt(link.label))}>{index == 0 ? index +1 : index  }</button>
             }
             })
             

@@ -16,7 +16,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import Toast from 'react-bootstrap/Toast';
 
 function Login() {
-  const [loginp,setLoginparams] = useState(new loginParams("bachir.hadjadji@naftal.dz","moh12345"))
+  const [loginp,setLoginparams] = useState(new loginParams("",""))
   const [login,{isLoading}] = useLoginMutation();
   const auth = useAppSelector((state:{auth:AuthState}) => state.auth);
   const [position, setPosition] = useState('bottom-end');

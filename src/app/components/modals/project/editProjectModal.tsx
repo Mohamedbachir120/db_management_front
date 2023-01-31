@@ -3,7 +3,7 @@ import { Project,  useUpdateProjectMutation } from '../../../../features/project
 import { faList } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, Form, Modal } from 'react-bootstrap'
-import projectUi, { ProjectUiState, initialize, setName,setDescription,setCreated, setDeleted, setError, showConfirmationMessage } from '../../../../features/project/project-ui'
+import projectUi, { ProjectUiState, initialize, setName,setDescription,setCreated, setDeleted, setError, showConfirmationMessage, showLinkedDB } from '../../../../features/project/project-ui'
 import { useAppDispatch, useAppSelector } from '../../../hooks'
 import ErrorMessage from '../../messages/ErrorMessage'
 import SuccessMessage from '../../messages/SuccessMessage'
@@ -69,6 +69,7 @@ function EditProjectModal({refetch}:{refetch:()=>void}) {
       <Button variant="secondary" onClick={handleClose}>
         Annuler
       </Button>
+    
       <button className="btn bg-primaire" onClick={async () => {
           const project = new Project(uistate.project.id,uistate.project.name,uistate.project.description);
 

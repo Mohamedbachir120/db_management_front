@@ -2,7 +2,7 @@ import React from 'react'
 import "./../../dashboard.css";
 import { Link } from 'react-router-dom';
 import logo from "../../assets/logo-color.svg";
-import { faPeopleGroup,faHome,faServer, faSignOut , faListCheck, faLink,faKey,faGear , faPerson , faDatabase , faUser} from '@fortawesome/free-solid-svg-icons';
+import { faPeopleGroup,faHome,faServer, faSignOut , faListCheck, faLink,faKey,faGear , faPerson , faDatabase , faUser, faLock} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useLogoutMutation } from '../../features/login/login';
 
@@ -28,6 +28,9 @@ export default function Navbar({active }:{active:string}) {
         </li>
         <li className={ "access" == active ? 'active' : "" }>
           <Link to="/access"><FontAwesomeIcon icon={faKey} /> Accès</Link>
+        </li>
+        <li className={ "privillege" == active ? 'active' : "" }>
+          <Link to="/privillege"><FontAwesomeIcon icon={faLock} /> Privillège</Link>
         </li>
         <li className={ "sgbd" == active ? 'active' : "" }>
           <Link to="/sgbd"><FontAwesomeIcon icon={faDatabase} /> SGBD</Link>

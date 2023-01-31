@@ -1,24 +1,25 @@
 import React from 'react'
 import  Navbar  from '../components/Navbar'
 import Header from '../components/Header'
-import { useFetchProjectsQuery,Project } from '../../features/project/project' 
+import { useFetchPrivillegesQuery,Privillege } from '../../features/privillege/privillege' 
 import { Button, Form, Modal } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAdd, faList } from '@fortawesome/free-solid-svg-icons';
+import { faAdd, faDatabase, faLock } from '@fortawesome/free-solid-svg-icons';
 import TableSkeleton from '../components/skeletons/TableSkeleton';
 import { useAppDispatch } from '../hooks';
-import {  show, showDetail } from '../../features/project/project-ui';
-import AddProjectModal from '../components/modals/project/addProject';
-import DetailsProjectModal from '../components/modals/project/detailsProjectModal';
-import EditProjectModal from '../components/modals/project/editProjectModal';
+import {  show, showDetail } from '../../features/privillege/privillege-ui';
+
+import AddPrivillegeModal from '../components/modals/privillege/addPrivillege';
+import DetailsPrivillegeModal from '../components/modals/privillege/detailsPrivillegeModal';
+import EditPrivillegeModal from '../components/modals/privillege/editPrivillegeModal';
 
 
-export default function ProjectPage() {
+export default function PrivillegePage() {
 
   const [keyword, setKeyword] = React.useState("");
   const [page,setPage] = React.useState(1);
 
-  const { data,isFetching,refetch } = useFetchProjectsQuery({keyword,page});
+  const { data,isFetching,refetch } = useFetchPrivillegesQuery({keyword,page});
   const dispatch = useAppDispatch();
 
   function CustomRefetch(){
@@ -28,19 +29,19 @@ export default function ProjectPage() {
   return (
     <div className='d-flex flex-row'>
       <div className='col-3'>
-      <Navbar active={"project"} />
+      <Navbar active={"privillege"} />
 
       </div>
       <div className='col-9 pb-5'>
         <Header />
         <div className="card me-5 p-3 shadow">
-        <h2 className="text-green"><FontAwesomeIcon icon={faList} /> Projet</h2>
+        <h2 className="text-green"><FontAwesomeIcon icon={faLock} /> Privillège</h2>
 
           <div className='d-flex flex-row my-3'>
         
 
           <div className='col-9 me-4 '>
-            <Form.Control type="text" placeholder="Nom , description ..." onChange={(e)=>{
+            <Form.Control type="text" placeholder="Nom , securable ..." onChange={(e)=>{
               setKeyword(e.target.value);
               
             }} />
@@ -48,7 +49,7 @@ export default function ProjectPage() {
           </div>
           <div>
           
-            <button className='btn bg-secondaire' onClick={() =>{dispatch(show()); }}> <FontAwesomeIcon icon={faAdd} /> Ajouter un project</button>
+            <button className='btn bg-secondaire' onClick={() =>{dispatch(show()); }}> <FontAwesomeIcon icon={faAdd} /> Ajouter un privillege</button>
 
           </div>
           </div>
@@ -57,7 +58,7 @@ export default function ProjectPage() {
             <thead >
               <tr className='bg-primaire'>
                 <td>Nom</td>
-                <td>Description</td>
+                <td>Securable</td>
                   
 
                 <td>Détails</td>          
@@ -68,16 +69,16 @@ export default function ProjectPage() {
              {!isFetching ?
            ( <tbody>
               
-            {  data?.data.map((project:Project) => {
+            {  data?.data.map((privillege:Privillege) => {
              
 
-              return (<tr key={project.id}>
-                <td>{project.name}</td>
-                <td>{project.description}</td>
+              return (<tr key={privillege.id}>
+                <td>{privillege.name}</td>
+                <td>{privillege.securable}</td>
                
                 <td><Button className='bg-secondaire' onClick={()=>{
                   
-                  dispatch(showDetail(project));
+                  dispatch(showDetail(privillege));
 
                 }}>Détails</Button></td>
 
@@ -85,7 +86,7 @@ export default function ProjectPage() {
               </tr>)
               
             }) }
-            </tbody> ) : (<TableSkeleton data={3}/>)} 
+            </tbody> ) : (<TableSkeleton data={3} />)} 
             
 
           </table>
@@ -109,10 +110,9 @@ export default function ProjectPage() {
         </div>
         </div>
           
-       <AddProjectModal  refetch={CustomRefetch} />
-       <DetailsProjectModal refetch={CustomRefetch} />  
-       <EditProjectModal refetch={CustomRefetch} /> 
-        
+       <AddPrivillegeModal  refetch={CustomRefetch} />
+       <DetailsPrivillegeModal refetch={CustomRefetch} />  
+       <EditPrivillegeModal refetch={CustomRefetch} /> 
 
     </div>
     

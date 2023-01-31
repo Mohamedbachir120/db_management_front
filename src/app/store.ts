@@ -8,6 +8,8 @@ import projectUiSlice from "../features/project/project-ui";
 import responsableUiSlice from "../features/responsable/responsable-ui";
 import populationUiSlice from "../features/population/population-ui";
 import bddUiSlice from "../features/bdd/bdd-ui";
+import privillegeUiSlice from "../features/privillege/privillege-ui";
+
 
 import { serveurSlice } from "../features/serveur/serveur";
 import { accessSlice } from "../features/access/access";
@@ -15,6 +17,8 @@ import { sgbdSlice } from "../features/sgbd/sgbd";
 import { projectSlice } from "../features/project/project";
 import { responsableSlice } from "../features/responsable/responsable";
 import { bddSlice } from "../features/bdd/bdd";
+import { privillegeSlice } from "../features/privillege/privillege";
+
 import { linkedServerSlice } from "../features/linked-server/linked-server";
 import { populationSlice } from "../features/population/population";
 import linkedServerUiSlice from "../features/linked-server/linked-server-ui";
@@ -30,6 +34,7 @@ export const store = configureStore({
         responsableUi: responsableUiSlice,
         populationUi: populationUiSlice,
         bddUi: bddUiSlice,
+        privillegeUi: privillegeUiSlice,
 
 
 
@@ -41,7 +46,9 @@ export const store = configureStore({
         [projectSlice.reducerPath]:projectSlice.reducer,
         [responsableSlice.reducerPath]:responsableSlice.reducer,
         [populationSlice.reducerPath]:populationSlice.reducer,
-        [bddSlice.reducerPath]:bddSlice.reducer
+        [bddSlice.reducerPath]:bddSlice.reducer,
+        [privillegeSlice.reducerPath]:privillegeSlice.reducer,
+
 
 
 
@@ -60,7 +67,9 @@ export const store = configureStore({
                 projectSlice.middleware,
                 responsableSlice.middleware,
                 populationSlice.middleware,
-                bddSlice.middleware);
+                bddSlice.middleware,
+                privillegeSlice.middleware,
+                );
     }
 
 });

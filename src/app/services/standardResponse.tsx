@@ -4,3 +4,7 @@ export  interface StandarResponse{
     message: string
 
 }
+export interface PasswordResponse{
+    success:boolean
+    password:string
+}

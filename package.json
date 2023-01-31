@@ -26,6 +26,7 @@
     "react-loading-skeleton": "^3.1.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.6.1",
+    "react-select-search": "^4.1.6",
     "sort-by": "^1.2.0"
   },
   "devDependencies": {

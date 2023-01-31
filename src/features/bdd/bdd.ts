@@ -3,6 +3,7 @@ import { baseQueryWithReauth } from '../../app/services/baseQuery';
 import { StandarResponse } from '../../app/services/standardResponse';
 import { Server } from '../serveur/serveur';
 import { Sgbd } from '../sgbd/sgbd';
+import { Access } from '../access/access';
 
 export class Bdd {
     constructor(id=0,name:string,engine:string,status:string,creation_date="",server:Server,sgbd:Sgbd,server_id=0,sgbd_id=0) {
@@ -58,6 +59,26 @@ export const bddSlice = createApi({
             query: (params) => {return `/bdd?page=${params.page}&keyword=${params.keyword}`;},
 
         }),
+        getBdd:builder.query<Bdd,number>({
+            query:(id)=>({
+                url: `bdd/${id}`,
+                method: 'GET',
+            })
+        }),
+        fetchLinkedAccess: builder.query<Access[], number>({
+            query: (id) => {return `bdd_access/${id}`} 
+
+        }),
+        linkAccess: builder.mutation<StandarResponse, {id:number,access:number[]}>({
+            query: (params) => ({
+                url: `bdd/linkAccess/${params.id}`,
+                method: 'POST',
+                body: {
+                    access:params.access
+                }
+            }),
+
+        }),
         storeBdd: builder.mutation<StandarResponse, Bdd>({
             query: (bdd) => ({
                 url: "bdd",
@@ -104,5 +125,5 @@ export const bddSlice = createApi({
 
 })
 export const {
-    useFetchBddsQuery , useStoreBddMutation, useDeleteBddMutation , useUpdateBddMutation} = bddSlice;
+    useFetchBddsQuery , useGetBddQuery , useFetchLinkedAccessQuery , useLinkAccessMutation,useStoreBddMutation, useDeleteBddMutation , useUpdateBddMutation} = bddSlice;
 

@@ -1,13 +1,14 @@
 import { createSlice,PayloadAction } from "@reduxjs/toolkit";
-import { Access } from "./access";
-export class AccessUiState{
-    constructor (show:boolean,created:boolean,isError:boolean,showEdit:boolean,showDetail:boolean,access:Access,showConfirmationMessage:boolean,isDeleted:boolean,showPassword:boolean)  {
+import { Privillege } from "./privillege";
+
+export const initPrivillege = new Privillege(0,"","",0);
+export class PrivillegeUiState{
+    constructor (show:boolean,created:boolean,isError:boolean,showEdit:boolean,showDetail:boolean,privillege:Privillege,showConfirmationMessage:boolean,isDeleted:boolean)  {
             this.show = show;
-            this.showPassword = showPassword;
             this.created = created;
             this.isError = isError;
             this.showDetail = showDetail;
-            this.access = access;
+            this.privillege = privillege;
             this.showConfirmationMessage = showConfirmationMessage;
             this.isDeleted = isDeleted;
             this.showEdit = showEdit;
@@ -20,22 +21,20 @@ export class AccessUiState{
     showConfirmationMessage:boolean;
     created:boolean;
     isError:boolean;
-    access:Access;
+    privillege:Privillege;
     isDeleted:boolean;
-    showPassword:boolean;
   
 }
 
-const initialState:AccessUiState = {
+const initialState:PrivillegeUiState = {
     show: false ,
     created: false,
     isDeleted:false,
     isError: false,
     showDetail: false,
     showEdit:false,
-    showPassword:false,
     showConfirmationMessage:false,
-    access: new Access(0,"","",0)
+    privillege: new Privillege(0,"","",0)
 
 
     
@@ -44,8 +43,8 @@ const initialState:AccessUiState = {
   
 };
 
-const accessUiSlice = createSlice({
-    name: "accessUi",
+const privillegeUiSlice = createSlice({
+    name: "privillegeUi",
     initialState,
     reducers: {
         show (state)  {
@@ -55,7 +54,7 @@ const accessUiSlice = createSlice({
            
         },
         showDetail(state,action){
-            state.access = action.payload;
+            state.privillege = action.payload;
             state.showDetail = true;
         },
         showEdit(state){
@@ -92,23 +91,18 @@ const accessUiSlice = createSlice({
            
             state.showConfirmationMessage = true;
         },
-        setUsername(state,action){
-            state.access.username = action.payload;
+        setName(state,action){
+            state.privillege.name = action.payload;
         },
-        setPwd(state,action){
-            state.access.pwd = action.payload;
+        setSecurable(state,action){
+            state.privillege.securable = action.payload;
         },
-        setAuthType(state,action){
-            state.access.auth_type = action.payload;
-        },
-        ShowPassword(state){
-            state.showPassword = true;
-        }
+       
         
     }
 })
 
-export const { show , hide ,setUsername,ShowPassword,setPwd,setAuthType,showEdit, setCreated , initialize,setError,showDetail,hideDetail,showConfirmationMessage,setDeleted } = accessUiSlice.actions;
-export default accessUiSlice.reducer;
+export const { show , hide ,setName,setSecurable,showEdit, setCreated , initialize,setError,showDetail,hideDetail,showConfirmationMessage,setDeleted } = privillegeUiSlice.actions;
+export default privillegeUiSlice.reducer;
 
 

@@ -1,6 +1,7 @@
 import {  createApi } from '@reduxjs/toolkit/query/react';
 import { baseQueryWithReauth } from '../../app/services/baseQuery';
 import { StandarResponse } from '../../app/services/standardResponse';
+import { Access } from '../access/access';
 
 export class Responsable {
     constructor(id=0,name:string,email:string,phone:string) {
@@ -43,6 +44,16 @@ export const responsableSlice = createApi({
             query: (params) => {return `/responsable?page=${params.page}&keyword=${params.keyword}`;},
 
         }),
+        fetchLinkedAccess: builder.query<Access[], number>({
+            query: (id) => {return `getLinkedAccess/${id}`} 
+
+        }),
+        getResponsable:builder.query<Responsable,number>({
+            query:(id)=>({
+                url: `responsable/${id}`,
+                method: 'GET',
+            })
+        }),
         storeResponsable: builder.mutation<StandarResponse, Responsable>({
             query: (credentials) => ({
                 url: "responsable",
@@ -78,11 +89,21 @@ export const responsableSlice = createApi({
             }),
 
         }),
+        linkAccess: builder.mutation<StandarResponse, {id:number,access:number[]}>({
+            query: (params) => ({
+                url: `linkAccess/${params.id}`,
+                method: 'POST',
+                body: {
+                    access:params.access
+                }
+            }),
+
+        }),
       
 
     })
 
 })
 export const {
-    useFetchResponsablesQuery , useStoreResponsableMutation, useDeleteResponsableMutation , useUpdateResponsableMutation} = responsableSlice;
+    useFetchResponsablesQuery , useGetResponsableQuery, useFetchLinkedAccessQuery, useLinkAccessMutation ,useStoreResponsableMutation, useDeleteResponsableMutation , useUpdateResponsableMutation} = responsableSlice;
 

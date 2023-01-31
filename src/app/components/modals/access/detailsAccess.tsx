@@ -1,13 +1,14 @@
 import React from 'react'
 import { Access, useDeleteAccessMutation } from '../../../../features/access/access'
-import { faKey , faEdit ,  faEraser, faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faKey , faEdit ,  faEraser, faCheck, faXmark, faLock, faCopy } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, Modal } from 'react-bootstrap'
-import accessUi, { AccessUiState, initialize, setDeleted,showEdit , setError, showConfirmationMessage, hideDetail } from '../../../../features/access/access-ui'
+import accessUi, { AccessUiState, initialize, setDeleted,showEdit , setError, showConfirmationMessage, hideDetail, ShowPassword } from '../../../../features/access/access-ui'
 import { useAppDispatch, useAppSelector } from '../../../hooks'
 import ErrorMessage from '../../messages/ErrorMessage'
 import SuccessMessage from '../../messages/SuccessMessage'
 import Loader from '../../Loader'
+import { Link } from 'react-router-dom'
 
 function DetailsAccessModal({refetch}:{refetch:()=>void}) {
     const uistate = useAppSelector((state:{accessUi:AccessUiState}) => state.accessUi);
@@ -37,7 +38,12 @@ function DetailsAccessModal({refetch}:{refetch:()=>void}) {
             <li className='list-style-none'> <span className='text-green fw-bold'>Username : &nbsp;</span>   
                 {uistate.access.username}</li>
 
-            <li className='list-style-none'> <span className='text-green fw-bold'>Password : &nbsp;</span>   
+            <li className='list-style-none'> <span className='text-green fw-bold'>Password : &nbsp;</span>
+            <button className='btn ' onClick={()=>{
+                dispatch(hideDetail());
+
+                dispatch(ShowPassword());
+            }}><FontAwesomeIcon icon={faCopy} /> copy password</button>   
             </li>
 
             <li className='list-style-none'> <span className='text-green fw-bold'>Auth type : &nbsp;</span>   
@@ -47,13 +53,17 @@ function DetailsAccessModal({refetch}:{refetch:()=>void}) {
                 
         </ul>
         <div className='d-flex flex-row justify-content-between col-11'>
-            <Button variant='success' className='col-6 mx-2' onClick={()=>{
+        <Link to={"/access/previllege/"+uistate.access.id.toString()} className='col-4 mx-2 btn btn-outline-warning'>
+                <FontAwesomeIcon icon={faLock} /> Privillèges
+            </Link>
+            <Button variant='outline-success' className='col-4 mx-2' onClick={()=>{
                     dispatch(hideDetail());
                     dispatch(showEdit());
             }}>
                <FontAwesomeIcon icon={faEdit} />  Modifier
             </Button>
-            <Button variant='danger' className='col-6 mx-2' onClick={
+          
+            <Button variant='outline-danger' className='col-4 mx-2' onClick={
                 ()=>{
                     
                 dispatch(showConfirmationMessage());

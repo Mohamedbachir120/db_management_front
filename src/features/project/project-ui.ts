@@ -1,12 +1,13 @@
 import { createSlice,PayloadAction } from "@reduxjs/toolkit";
 import { Project } from "./project";
 export class ProjectUiState{
-    constructor (show:boolean,created:boolean,isError:boolean,showEdit:boolean,showDetail:boolean,project:Project,showConfirmationMessage:boolean,isDeleted:boolean)  {
+    constructor (show:boolean,created:boolean,showLinked:boolean,isError:boolean,showEdit:boolean,showDetail:boolean,project:Project,showConfirmationMessage:boolean,isDeleted:boolean)  {
             this.show = show;
             this.created = created;
             this.isError = isError;
             this.showDetail = showDetail;
             this.project = project;
+            this.showLinked = showLinked;
             this.showConfirmationMessage = showConfirmationMessage;
             this.isDeleted = isDeleted;
             this.showEdit = showEdit;
@@ -16,6 +17,7 @@ export class ProjectUiState{
     show:boolean;
     showDetail:boolean;
     showEdit:boolean;
+    showLinked:boolean;
     showConfirmationMessage:boolean;
     created:boolean;
     isError:boolean;
@@ -31,6 +33,7 @@ const initialState:ProjectUiState = {
     isError: false,
     showDetail: false,
     showEdit:false,
+    showLinked:false,
     showConfirmationMessage:false,
     project: new Project(0,"","")
 
@@ -58,6 +61,9 @@ const projectUiSlice = createSlice({
         showEdit(state){
             state.showEdit = true;
             
+        },
+        showLinkedDB(state){
+            state.showLinked = true;
         },
         hideEdit(state){
             state.showEdit = false;
@@ -100,7 +106,7 @@ const projectUiSlice = createSlice({
     }
 })
 
-export const { show , hide ,setName,setDescription,showEdit, setCreated , initialize,setError,showDetail,hideDetail,showConfirmationMessage,setDeleted } = projectUiSlice.actions;
+export const { show , hide ,setName,setDescription,showLinkedDB,showEdit, setCreated , initialize,setError,showDetail,hideDetail,showConfirmationMessage,setDeleted } = projectUiSlice.actions;
 export default projectUiSlice.reducer;
 
 

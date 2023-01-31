@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from '../components/Navbar';
 import Header from '../components/Header';
 import { faker } from '@faker-js/faker';
-
+import { useEffect } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -20,6 +20,12 @@ import {
   Legend,
 } from 'chart.js';
 import { Line , Pie, Doughnut} from 'react-chartjs-2';
+import { useFetchStatsQuery } from "../../features/serveur/serveur";
+import { useState } from "react";
+import axios from "axios";
+import { baseUrl } from "../constantes/const";
+
+
 
 ChartJS.register(
   CategoryScale,
@@ -46,67 +52,51 @@ export const options = {
   },
 };
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      fill: true,
-      label: 'Windows Server',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      borderColor: '#50A060',
-      backgroundColor: '#50A0606e',
-    },
-  ],
-};
-
-export const dataPie = {
-  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-  datasets: [
-    {
-      label: '# of Votes',
-      data: [12, 19, 3, 5, 2, 3],
-      backgroundColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)',
-      ],
-      borderColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)',
-      ],
-      borderWidth: 1,
-    },
-  ],
-};
-
 const Home = () => {
 
-   
+
+
+  var [labels,setLabels] = useState([]);  
+  var [data,setData] = useState([]);
+  useEffect(  () => {
+    async function fetchData(){
+     await axios.get(baseUrl + "stats").then((response)=>{
+        setLabels(response.data.populations.map((e:any)=> e.designation));
+        setData(response.data.populations.map((e:any)=> e.projects_count));
+  
+       })
+    }
+    fetchData()
+  }, []);
+  
   return (
     <div className='d-flex flex-row justify-content-start'>
       <div className='col-3'>
         <Navbar active={"home"} />
       </div>
-
+      {
+      }
       <div className='col-9'>
         <Header />
         <h2 className="text-green">Dashboard</h2>
         <div className="d-flex flex-row justify-content-around me-4 my-2">
          <div className="col card mx-2">
-
-           <Line  options={options} data={data} />
+           <Line  options={options} data={ 
+            {
+              
+            labels,
+            datasets: [
+              {
+                fill: true,
+                label: 'Windows Server',
+                data:  data ,
+                borderColor: '#50A060',
+                backgroundColor: '#50A0606e',
+              },
+            ],}} />
          </div>
-         <div className="col card mx-2">
-           <Line  options={options} data={data} />
+         {/* <div className="col card mx-2">
+           <Line  options={options} data={data1} />
 
         </div>
 
@@ -120,7 +110,7 @@ const Home = () => {
 
          <Pie data={dataPie} />
 
-        </div>
+        </div> */}
 
 
         </div>

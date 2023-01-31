@@ -1,6 +1,6 @@
 import React from 'react'
 import { Bdd, useDeleteBddMutation } from '../../../../features/bdd/bdd'
-import { faDatabase , faEdit ,  faEraser, faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faDatabase , faEdit ,  faEraser, faCheck, faXmark, faKey } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, Modal } from 'react-bootstrap'
 import serverUi, { initialize, setDeleted,showEdit , setError, showConfirmationMessage, hideDetail } from '../../../../features/bdd/bdd-ui'
@@ -9,6 +9,7 @@ import ErrorMessage from '../../messages/ErrorMessage'
 import SuccessMessage from '../../messages/SuccessMessage'
 import Loader from '../../Loader'
 import { BddUiState } from '../../../../features/bdd/bdd-ui'
+import { Link } from 'react-router-dom'
 
 function DetailsBddModal({refetch}:{refetch:()=>void}) {
     const uistate = useAppSelector((state:{bddUi:BddUiState}) => state.bddUi);
@@ -46,7 +47,7 @@ function DetailsBddModal({refetch}:{refetch:()=>void}) {
 
             <li className='list-style-none'> <span className='text-green fw-bold'>Sgbd : &nbsp;</span>   
             {uistate.bdd.sgbd.name}</li>     
-
+ 
              <li className='list-style-none'> <span className='text-green fw-bold'>Date de création : &nbsp;</span>   
             {uistate.bdd.creation_date}</li> 
             <li className='list-style-none'> <span className='text-green fw-bold'>Engine : &nbsp;</span>   
@@ -54,19 +55,23 @@ function DetailsBddModal({refetch}:{refetch:()=>void}) {
                 
         </ul>
         <div className='d-flex flex-row justify-content-between col-11'>
-            <Button variant='success' className='col-6 mx-2' onClick={()=>{
+        <Link  className='btn btn-outline-warning col-4 mx-2' to={"/bdd/access/"+uistate.bdd.id.toString()}>
+               <FontAwesomeIcon icon={faKey}  />  Access
+            </Link>
+            <Button variant='outline-success' className='col-4 mx-2' onClick={()=>{
                     dispatch(hideDetail());
                     dispatch(showEdit());
             }}>
                <FontAwesomeIcon icon={faEdit} />  Modifier
             </Button>
-            <Button variant='danger' className='col-6 mx-2' onClick={
-                ()=>{
+            <Button variant='outline-danger' className='col-4 mx-2' onClick={
+               ()=>{
                     
                 dispatch(showConfirmationMessage());
                }}>
                <FontAwesomeIcon icon={faEraser}  />  Supprimer
             </Button>
+
         </div>
 
       </Modal.Body>

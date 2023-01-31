@@ -1,6 +1,7 @@
 import {  createApi } from '@reduxjs/toolkit/query/react';
 import { baseQueryWithReauth } from '../../app/services/baseQuery';
 import { StandarResponse } from '../../app/services/standardResponse';
+import { Population } from '../population/population';
 
 export class Server {
     constructor(id=0,dns:string,ip:string,OSversion:string,instance_name:string,port:string) {
@@ -27,6 +28,16 @@ export class Server {
     bdds_count:number;
 
 }
+export class ExtendedPopulation extends Population {
+    constructor(id=0,designation:string,projects_count:number){
+        super(id,designation);
+        this.projects_count = projects_count;
+        
+    }
+
+    
+    projects_count: number;
+}
 export interface Page{
     active:boolean
     url:string
@@ -42,6 +53,10 @@ export interface ListResponse<Server> {
     data: Server[]
   }
 
+export interface STATS{
+    populations:ExtendedPopulation[]
+    servers:Server[]
+} 
   
 
 
@@ -53,6 +68,9 @@ export const serveurSlice = createApi({
         fetchServers: builder.query<ListResponse<Server>,{keyword:string,page:number}>({
             query: (params) => {return `/server?page=${params.page}&keyword=${params.keyword}`;},
 
+        }),
+        fetchStats:builder.query<STATS,number>({
+            query:(params) => {return `/stats`;}
         }),
         storeServer: builder.mutation<StandarResponse, Server>({
             query: (credentials) => ({
@@ -70,6 +88,7 @@ export const serveurSlice = createApi({
             }),
 
         }),
+
         deleteServer: builder.mutation<StandarResponse, number>({
             query: (id) => ({
                 url: `server/${id}`,
@@ -97,5 +116,5 @@ export const serveurSlice = createApi({
 
 })
 export const {
-    useFetchServersQuery , useStoreServerMutation, useDeleteServerMutation , useUpdateServerMutation} = serveurSlice;
+    useFetchServersQuery , useFetchStatsQuery,useStoreServerMutation, useDeleteServerMutation , useUpdateServerMutation} = serveurSlice;
 

@@ -1,13 +1,14 @@
 import React from 'react'
 import { Project, useDeleteProjectMutation } from '../../../../features/project/project'
-import { faList , faEdit ,  faEraser, faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faList , faEdit , faDatabase, faPerson ,faEraser, faCheck, faXmark, faPeopleGroup } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, Modal } from 'react-bootstrap'
-import projectUi, { ProjectUiState, initialize, setDeleted,showEdit , setError, showConfirmationMessage, hideDetail } from '../../../../features/project/project-ui'
+import projectUi, { ProjectUiState, initialize, setDeleted,showEdit , setError, showConfirmationMessage, hideDetail, showLinkedDB } from '../../../../features/project/project-ui'
 import { useAppDispatch, useAppSelector } from '../../../hooks'
 import ErrorMessage from '../../messages/ErrorMessage'
 import SuccessMessage from '../../messages/SuccessMessage'
 import Loader from '../../Loader'
+import { Link } from 'react-router-dom'
 
 function DetailsProjectModal({refetch}:{refetch:()=>void}) {
     const uistate = useAppSelector((state:{projectUi:ProjectUiState}) => state.projectUi);
@@ -22,7 +23,7 @@ function DetailsProjectModal({refetch}:{refetch:()=>void}) {
    
 
   return (
-    <Modal show={uistate.showDetail} onHide={handleClose}   size="lg" centered>
+    <Modal show={uistate.showDetail} onHide={handleClose}   size="xl" centered>
     <Modal.Header className='bg-secondaire' closeButton>
       <Modal.Title ><FontAwesomeIcon icon={faList} /> Détails Projet</Modal.Title>
       
@@ -42,14 +43,34 @@ function DetailsProjectModal({refetch}:{refetch:()=>void}) {
 
                 
         </ul>
-        <div className='d-flex flex-row justify-content-between col-11'>
-            <Button variant='success' className='col-6 mx-2' onClick={()=>{
+        <div className='d-flex flex-row justify-content-around  col-11'>
+         
+            
+            <div className='col-2 mx-1'>
+                
+                <Link className='btn btn-outline-primary col-12' to={"/project/databases/"+uistate.project.id.toString()}>
+                    <FontAwesomeIcon icon={faDatabase} /> Databases
+                </Link>
+            </div>
+            <div className='col-2 mx-1'>
+                
+                <Link className='btn btn-outline-info  col-12' to={"/project/populations/"+uistate.project.id.toString()}>
+                    <FontAwesomeIcon icon={faPeopleGroup} /> Populations
+                </Link>
+            </div>
+            <div className='col-2 mx-1'>
+                
+                <Link className='btn btn-outline-secondary col-12' to={"/project/responsables/"+uistate.project.id.toString()}>
+                    <FontAwesomeIcon icon={faPerson} /> Responsables
+                </Link>
+            </div>
+            <Button variant='outline-success' className='col-2 mx-2' onClick={()=>{
                     dispatch(hideDetail());
                     dispatch(showEdit());
             }}>
                <FontAwesomeIcon icon={faEdit} />  Modifier
             </Button>
-            <Button variant='danger' className='col-6 mx-2' onClick={
+            <Button variant='outline-danger' className='col-2 mx-2' onClick={
                 ()=>{
                     
                 dispatch(showConfirmationMessage());
@@ -69,6 +90,7 @@ function DetailsProjectModal({refetch}:{refetch:()=>void}) {
             }}>
                <FontAwesomeIcon icon={faXmark}  />  Annuler
             </Button>
+          
             <Button variant='primary' className='col-6 mx-2' onClick={async ()=>{
                   try {
                     const payload = await deleteProject(uistate.project.id).unwrap();

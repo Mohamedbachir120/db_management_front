@@ -7,10 +7,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAdd, faKey } from '@fortawesome/free-solid-svg-icons';
 import TableSkeleton from '../components/skeletons/TableSkeleton';
 import { useAppDispatch } from '../hooks';
-import {  show, showDetail } from '../../features/access/access-ui';
+import {  initialize, show, showDetail } from '../../features/access/access-ui';
 import AddAccessModal from '../components/modals/access/addAccess';
 import DetailsAccessModal from '../components/modals/access/detailsAccess';
 import EditAccessModal from '../components/modals/access/editAccess';
+import PasswordModal from '../components/modals/access/passwordModal';
 
 export default function AccessPage() {
 
@@ -77,7 +78,6 @@ export default function AccessPage() {
                 <td>{access.auth_type == 0 ?"SQl Server authentication":"Windows Authentication"}</td>
                
                 <td><Button className='bg-secondaire' onClick={()=>{
-                  
                   dispatch(showDetail(access));
 
                 }}>Détails</Button></td>
@@ -113,7 +113,7 @@ export default function AccessPage() {
        <AddAccessModal  refetch={CustomRefetch} />
          <DetailsAccessModal refetch={CustomRefetch} />  
         <EditAccessModal refetch={CustomRefetch} />
-
+          <PasswordModal refetch={CustomRefetch} />
     </div>
     
   )

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function SuccessMessage({message}:{message:string}) {
   return (
-    <div className='d-flex flex-column align-items-center justify-content-center'>
+    <div className='d-flex flex-column align-items-center justify-content-center py-4'>
     <div className='bg-secondaire p-4 rounded-circle m-3' >
         <h1>
 

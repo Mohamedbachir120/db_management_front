@@ -52,9 +52,7 @@ export default function Navbar({active }:{active:string}) {
       <li className={ "profil" == active ? 'active' : "" }>
           <Link to="/profil"><FontAwesomeIcon icon={faUser} /> Profile</Link>
         </li>
-        <li className={ "settings" == active ? 'active' : "" }>
-          <Link to="/settings"><FontAwesomeIcon icon={faGear} /> Paramètres</Link>
-        </li>
+       
         <li className={ "responsables" == active ? 'active' : "" }>
           <Link to="/signout" onClick={(e)=>{
             e.preventDefault();

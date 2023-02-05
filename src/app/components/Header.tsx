@@ -23,7 +23,10 @@ export default function Header() {
         <div className="d-flex flex-row col-3 align-items-center">
 
         <div>
-            <img src="https://mohamedbachir120.github.io/HADJADJI-Mohamed/assets/Mohamed-c7e70c17.png" alt="" height={50} />
+            <img className='rounded' src=
+            {auth.id != 1 ? "https://ui-avatars.com/api/?background=50A060&color=ffffff&name="+auth.username.charAt(0):
+            "https://avatars.githubusercontent.com/u/64052093?v=4"
+            } alt="" height={50} />
         </div>
         <div className='mx-3'>
             Hello , {auth.username}

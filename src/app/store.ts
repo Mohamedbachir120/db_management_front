@@ -22,6 +22,7 @@ import { privillegeSlice } from "../features/privillege/privillege";
 import { linkedServerSlice } from "../features/linked-server/linked-server";
 import { populationSlice } from "../features/population/population";
 import linkedServerUiSlice from "../features/linked-server/linked-server-ui";
+import { profilSlice } from "../features/auth/profil";
 
 export const store = configureStore({
     reducer:{
@@ -35,6 +36,7 @@ export const store = configureStore({
         populationUi: populationUiSlice,
         bddUi: bddUiSlice,
         privillegeUi: privillegeUiSlice,
+    
 
 
 
@@ -48,6 +50,7 @@ export const store = configureStore({
         [populationSlice.reducerPath]:populationSlice.reducer,
         [bddSlice.reducerPath]:bddSlice.reducer,
         [privillegeSlice.reducerPath]:privillegeSlice.reducer,
+        [profilSlice.reducerPath]:profilSlice.reducer,
 
 
 
@@ -69,7 +72,8 @@ export const store = configureStore({
                 populationSlice.middleware,
                 bddSlice.middleware,
                 privillegeSlice.middleware,
-                );
+                profilSlice.middleware
+                               );
     }
 
 });

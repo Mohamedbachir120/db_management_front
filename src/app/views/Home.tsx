@@ -39,30 +39,23 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top' as const,
-    },
-    title: {
-      display: true,
-      text: 'Number of servers',
-    },
-  },
-};
 
 const Home = () => {
 
 
 
-  var [labels,setLabels] = useState([]);  
-  var [data,setData] = useState([]);
+  var [labels,setLabelsPopulation] = useState([]);  
+  var [labelsBDD,setLabelsBdd] = useState([]);
+  var [dataPopulations,setDataPopulations] = useState([]);
+  var [dataBDD,setDataBDD] = useState([]);
+
   useEffect(  () => {
     async function fetchData(){
      await axios.get(baseUrl + "stats").then((response)=>{
-        setLabels(response.data.populations.map((e:any)=> e.designation));
-        setData(response.data.populations.map((e:any)=> e.projects_count));
+        setLabelsPopulation(response.data.populations.map((e:any)=> e.designation));
+        setDataPopulations(response.data.populations.map((e:any)=> e.projects_count));
+        setLabelsBdd(response.data.servers.map((e:any)=> e.dns));
+        setDataBDD(response.data.servers.map((e:any)=> e.bdds_count));
   
        })
     }
@@ -81,19 +74,59 @@ const Home = () => {
         <h2 className="text-green">Dashboard</h2>
         <div className="d-flex flex-row justify-content-around me-4 my-2">
          <div className="col card mx-2">
-           <Line  options={options} data={ 
+           <Line  options={{
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'top' as const,
+    },
+    title: {
+      display: true,
+      text: 'Number of projects by population',
+    },
+  },
+}} data={ 
             {
               
-            labels,
+           labels:labels,
             datasets: [
               {
                 fill: true,
                 label: 'Windows Server',
-                data:  data ,
+                data:  dataPopulations ,
                 borderColor: '#50A060',
                 backgroundColor: '#50A0606e',
               },
             ],}} />
+         </div>
+         <div className="col card mx-2">
+           <Line  options={{
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'top' as const,
+    },
+    title: {
+      display: true,
+      text: 'Number of Databases by server',
+    },
+  },
+}} data={ 
+            {
+              
+              labels:labelsBDD ,
+            datasets: [
+              {
+                fill: true,
+                label: 'Windows Server',
+                data:  dataBDD ,
+                borderColor: '#50A060',
+                backgroundColor: '#50A0606e',
+              },
+            ],
+          }
+            
+            } />
          </div>
          {/* <div className="col card mx-2">
            <Line  options={options} data={data1} />

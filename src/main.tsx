@@ -29,6 +29,7 @@ import { Privillege } from './features/privillege/privillege'
 import PrivillegePage from './app/views/Privillege'
 import LinkedAccessPrevillege from './app/views/linked_objects/linkAccessPrevillege'
 import LinkedPrevillegeAccess from './app/views/linked_objects/linkPrevillegeAccess'
+import Profil from './app/views/ProfilPage'
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
@@ -44,6 +45,11 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
             <Login/>
           </PublicWrapper>   
         }/>  
+          <Route path="/profil" element={
+          <PrivateWrapper>
+            <Profil/>
+          </PrivateWrapper>   
+        }/> 
         <Route path="/home" element={
           <PrivateWrapper>
             <Home/>

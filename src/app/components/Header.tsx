@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { useLogoutMutation } from '../../features/login/login';
 import { Button, Form } from 'react-bootstrap';
+import { signOut } from '../../features/auth/auth-slice';
 
 
 export default function Header() {
@@ -59,7 +60,10 @@ export default function Header() {
         </div>   
 
         <div className='col-1'>
-        <Button variant='light' onClick={()=> {logout("");}} title={"déconnexion"}>
+        <Button variant='light' onClick={()=> {
+             logout("");
+             dispatch(signOut());
+            }} title={"déconnexion"}>
             <FontAwesomeIcon icon={faSignOut}/>
         </Button>
         </div>

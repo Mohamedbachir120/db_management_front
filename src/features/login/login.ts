@@ -64,7 +64,6 @@ export const apiSlice = createApi({
                 method: 'POST',
                 responseHandler:(response)=>{
 
-                    store.dispatch(signOut());
                     
 
                     return response.text();

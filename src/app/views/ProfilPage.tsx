@@ -47,29 +47,32 @@ const Profil = () => {
                 
         <FormGroup className='col-4 my-1 d-flex flex-column align-items-start'>
             <Form.Label className='fw-bold text-dark'>
-              Ancien mot de passe</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Enter password"
-              value={password} 
-              onChange={e => setPassword(e.target.value)}
-              />
-           </FormGroup>
-           <FormGroup className='col-4 my-1 d-flex flex-column align-items-start'>
-            <Form.Label className='fw-bold text-dark'>
-             Mot de passe</Form.Label>
+            Ancien Mot de passe</Form.Label>
             <Form.Control
               type="password"
               placeholder="Enter password"
               value={oldpassword} 
               onChange={e => setOldPassword(e.target.value)}
               />
-           </FormGroup>    
+        </FormGroup>  
+        <FormGroup className='col-4 my-1 d-flex flex-column align-items-start'>
+            <Form.Label className='fw-bold text-dark'>
+               mot de passe</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Enter password"
+              value={password} 
+              onChange={e => setPassword(e.target.value)}
+              />
+        </FormGroup>
+            
            <div className="d-flex flex-row justify-content-start my-2">
 
         {
           !isLoading? (
-            <Button  className='col-4 success' variant="success" onClick={async () => {
+            <Button  className='col-4 ' variant={(password.trim().length > 7 && oldpassword.trim().length > 7) ? "success" : "secondary"} onClick={
+                (password.trim().length > 7 && oldpassword.trim().length > 7) ?
+                async () => {
           
           
               try {
@@ -77,6 +80,8 @@ const Profil = () => {
                 const  {message}   = await updatePassword({password:password,oldpassword:oldpassword}).unwrap();
               
                 setSuccess(true); 
+                setPassword("")
+                setOldPassword("")
                 setTimeout(() => {
                     setSuccess(false); 
                }, 1500);
@@ -88,23 +93,33 @@ const Profil = () => {
                 
               }
             
-           }}>
+           }:()=>{} }>
              Valider
            </Button>
           ) :(
-            <Spinner animation="border" variant='primary' />
+            <div className="d-flex flex-row justify-content-center col-4">
+
+                <Spinner animation="border" variant='primary' />
+            </div>
           )
         }
        
     
         </div>
         {success ? 
-        <div className="bg-primary col-4 text-light text-center rounded p-2">
+        <div className="col-4  text-center rounded p-2" style={{
+            "background":"#E1EFE4",
+            "color":"#50A060",
+            "border":"1px solid #50A060"
+        }}>
          Updated successfully
         </div> :<></>}
         {error ? 
-        <div className="bg-danger col-4 text-light text-center rounded p-2">
-            Old password incorrecte
+       <div className="col-4  text-center rounded p-2" style={{
+        "background":"#EFE1E4",
+        "color":"#A05060",
+        "border":"1px solid #A05060"
+     }}>            Old password incorrecte
         </div>
          :<></>}
 

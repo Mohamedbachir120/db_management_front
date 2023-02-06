@@ -5,9 +5,12 @@ import logo from "../../assets/logo-color.svg";
 import { faPeopleGroup,faHome,faServer, faSignOut , faListCheck, faLink,faKey,faGear , faPerson , faDatabase , faUser, faLock} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useLogoutMutation } from '../../features/login/login';
+import { useAppDispatch } from '../hooks';
+import { signOut } from '../../features/auth/auth-slice';
 
 export default function Navbar({active }:{active:string}) {
   const [logout,{isLoading}] = useLogoutMutation();
+  const dispatch = useAppDispatch();
 
   return (
     <div className='ps-5 shadow navbar d-flex flex-column align-items-start justify-content-start'>
@@ -56,7 +59,14 @@ export default function Navbar({active }:{active:string}) {
         <li className={ "responsables" == active ? 'active' : "" }>
           <Link to="/signout" onClick={(e)=>{
             e.preventDefault();
-            logout("");
+            try {
+              
+              logout("");
+              dispatch(signOut());
+            } catch (error) {
+              dispatch(signOut());
+              
+            }
           }}  ><FontAwesomeIcon icon={faSignOut} /> Déconnexion</Link>
         </li>
     </ul>

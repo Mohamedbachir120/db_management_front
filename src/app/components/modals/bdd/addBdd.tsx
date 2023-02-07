@@ -1,14 +1,14 @@
 import React from 'react'
 import { Button,Form,Modal } from 'react-bootstrap'
-import { BddUiState, hide, initServer, initialize, setCreated, setError } from '../../../../features/bdd/bdd-ui';
+import { BddUiState, initServer, initialize, setCreated, setError } from '../../../../features/bdd/bdd-ui';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDatabase, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faDatabase } from '@fortawesome/free-solid-svg-icons';
 import { Bdd, useStoreBddMutation ,  } from '../../../../features/bdd/bdd';
 import SuccessMessage from '../../messages/SuccessMessage';
 import Loader from '../../Loader';
 import ErrorMessage from '../../messages/ErrorMessage';
-import { ListResponse, Server, useFetchServersQuery } from '../../../../features/serveur/serveur';
+import {  Server, useFetchServersQuery } from '../../../../features/serveur/serveur';
 import { Sgbd, useFetchSgbdsQuery } from '../../../../features/sgbd/sgbd';
 import { initSgbd } from '../../../../features/sgbd/sgbd-ui';
 
@@ -16,8 +16,8 @@ function AddBddModal({refetch}:{refetch:()=>void}) {
     const uistate = useAppSelector((state:{bddUi:BddUiState}) => state.bddUi);
 
 
-    const [keyword, setKeyword] = React.useState("all");
-    const [page,setPage] = React.useState(1);
+    const [keyword] = React.useState("all");
+    const [page] = React.useState(1);
 
     const [name, setName] = React.useState('');
     const [engine, setEngine] = React.useState('');
@@ -27,7 +27,7 @@ function AddBddModal({refetch}:{refetch:()=>void}) {
     const [sgbd,setSgbd] = React.useState(0);
 
     
-    const { data,isFetching } = useFetchServersQuery({keyword,page});
+    const { data } = useFetchServersQuery({keyword,page});
 
     const { currentData } = useFetchSgbdsQuery({keyword,page});
   

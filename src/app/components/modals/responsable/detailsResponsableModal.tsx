@@ -1,9 +1,8 @@
-import React from 'react'
-import { Responsable, useDeleteResponsableMutation } from '../../../../features/responsable/responsable'
+import {  useDeleteResponsableMutation } from '../../../../features/responsable/responsable'
 import { faDatabase , faEdit ,  faEraser, faCheck, faXmark, faKey } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, Modal } from 'react-bootstrap'
-import responsableUi, { ResponsableUiState, initialize, setDeleted,showEdit , setError, showConfirmationMessage, hideDetail } from '../../../../features/responsable/responsable-ui'
+import  { ResponsableUiState, initialize, setDeleted,showEdit , setError, showConfirmationMessage, hideDetail } from '../../../../features/responsable/responsable-ui'
 import { useAppDispatch, useAppSelector } from '../../../hooks'
 import ErrorMessage from '../../messages/ErrorMessage'
 import SuccessMessage from '../../messages/SuccessMessage'
@@ -14,7 +13,7 @@ function DetailsResponsableModal({refetch}:{refetch:()=>void}) {
     const uistate = useAppSelector((state:{responsableUi:ResponsableUiState}) => state.responsableUi);
     const dispatch = useAppDispatch();
 
-    const [deleteResponsable,{isLoading,isError,isSuccess,reset}] = useDeleteResponsableMutation();
+    const [deleteResponsable,{isLoading}] = useDeleteResponsableMutation();
     
     function handleClose(){
         dispatch(initialize());

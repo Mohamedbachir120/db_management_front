@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
 import "./../../dashboard.css";
-import { Link } from 'react-router-dom';
-import logo from "../../assets/logo-color.svg";
 import { faSignOut,faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { useLogoutMutation } from '../../features/login/login';
-import { Button, Form } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { signOut } from '../../features/auth/auth-slice';
 
 

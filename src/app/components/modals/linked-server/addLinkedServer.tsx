@@ -1,9 +1,9 @@
 import React from 'react'
 import { Button,Form,Modal } from 'react-bootstrap'
-import { LinkedServerUiState, hide, initServer, initialize, setCreated, setError } from '../../../../features/linked-server/linked-server-ui';
+import { LinkedServerUiState, initServer, initialize, setCreated, setError } from '../../../../features/linked-server/linked-server-ui';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faServer, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faServer } from '@fortawesome/free-solid-svg-icons';
 import { LinkedServer, useStoreLinkedServerMutation ,  } from '../../../../features/linked-server/linked-server';
 import SuccessMessage from '../../messages/SuccessMessage';
 import Loader from '../../Loader';
@@ -27,7 +27,7 @@ function AddLinkedServerModal({refetch}:{refetch:()=>void}) {
     const [access,setAccess] = React.useState(0);
 
     
-    const { data,isFetching } = useFetchServersQuery({keyword,page});
+    const { data } = useFetchServersQuery({keyword,page});
 
     const { currentData } = useFetchAccesssQuery({keyword,page});
   

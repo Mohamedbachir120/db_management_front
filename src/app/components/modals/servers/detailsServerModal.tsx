@@ -1,9 +1,8 @@
-import React from 'react'
-import { Server, useDeleteServerMutation } from '../../../../features/serveur/serveur'
+import {  useDeleteServerMutation } from '../../../../features/serveur/serveur'
 import { faServer , faEdit ,  faEraser, faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, Modal } from 'react-bootstrap'
-import serverUi, { ServerUiState, initialize, setDeleted,showEdit , setError, showConfirmationMessage, hideDetail } from '../../../../features/serveur/server-ui'
+import  { ServerUiState, initialize, setDeleted,showEdit , setError, showConfirmationMessage, hideDetail } from '../../../../features/serveur/server-ui'
 import { useAppDispatch, useAppSelector } from '../../../hooks'
 import ErrorMessage from '../../messages/ErrorMessage'
 import SuccessMessage from '../../messages/SuccessMessage'
@@ -13,7 +12,7 @@ function DetailsServerModal({refetch}:{refetch:()=>void}) {
     const uistate = useAppSelector((state:{serverUi:ServerUiState}) => state.serverUi);
     const dispatch = useAppDispatch();
 
-    const [deleteServer,{isLoading,isError,isSuccess,reset}] = useDeleteServerMutation();
+    const [deleteServer,{isLoading}] = useDeleteServerMutation();
     
     function handleClose(){
         dispatch(initialize());

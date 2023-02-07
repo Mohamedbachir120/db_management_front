@@ -1,21 +1,13 @@
 
 import "./../../dashboard.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import Navbar from '../components/Navbar';
 import Header from '../components/Header';
-
-import { Line , Pie, Doughnut} from 'react-chartjs-2';
-import { useFetchStatsQuery } from "../../features/serveur/serveur";
 import { useState } from "react";
-import axios from "axios";
-import { baseUrl } from "../constantes/const";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faLock, faSignInAlt } from "@fortawesome/free-solid-svg-icons";
+import {  faLock } from "@fortawesome/free-solid-svg-icons";
 import { Button, Form, FormGroup, Spinner } from "react-bootstrap";
 import { useUpdatePasswordMutation } from "../../features/auth/profil";
-import SuccessMessage from "../components/messages/SuccessMessage";
-import ErrorMessage from "../components/messages/ErrorMessage";
 
 
 

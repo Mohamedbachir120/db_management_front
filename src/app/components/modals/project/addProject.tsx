@@ -1,9 +1,9 @@
 import React from 'react'
 import { Button,Form,Modal } from 'react-bootstrap'
-import { ProjectUiState, hide, initialize, setCreated, setError } from '../../../../features/project/project-ui';
+import { ProjectUiState, initialize, setCreated, setError } from '../../../../features/project/project-ui';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faList, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faList } from '@fortawesome/free-solid-svg-icons';
 import { Project, useStoreProjectMutation ,  } from '../../../../features/project/project';
 import SuccessMessage from '../../messages/SuccessMessage';
 import Loader from '../../Loader';
@@ -17,7 +17,7 @@ function AddProjectModal({refetch}:{refetch:()=>void}) {
 
 
 
-  const [storeProject,{isLoading,isError,isSuccess,reset}] = useStoreProjectMutation();
+  const [storeProject,{isLoading}] = useStoreProjectMutation();
 
 
     const dispatch = useAppDispatch();

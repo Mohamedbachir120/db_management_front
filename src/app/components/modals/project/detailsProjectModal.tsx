@@ -1,9 +1,8 @@
-import React from 'react'
-import { Project, useDeleteProjectMutation } from '../../../../features/project/project'
+import {  useDeleteProjectMutation } from '../../../../features/project/project'
 import { faList , faEdit , faDatabase, faPerson ,faEraser, faCheck, faXmark, faPeopleGroup } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, Modal } from 'react-bootstrap'
-import projectUi, { ProjectUiState, initialize, setDeleted,showEdit , setError, showConfirmationMessage, hideDetail, showLinkedDB } from '../../../../features/project/project-ui'
+import  { ProjectUiState, initialize, setDeleted,showEdit , setError, showConfirmationMessage, hideDetail, showLinkedDB } from '../../../../features/project/project-ui'
 import { useAppDispatch, useAppSelector } from '../../../hooks'
 import ErrorMessage from '../../messages/ErrorMessage'
 import SuccessMessage from '../../messages/SuccessMessage'
@@ -14,7 +13,7 @@ function DetailsProjectModal({refetch}:{refetch:()=>void}) {
     const uistate = useAppSelector((state:{projectUi:ProjectUiState}) => state.projectUi);
     const dispatch = useAppDispatch();
 
-    const [deleteProject,{isLoading,isError,isSuccess,reset}] = useDeleteProjectMutation();
+    const [deleteProject,{isLoading}] = useDeleteProjectMutation();
     
     function handleClose(){
         dispatch(initialize());

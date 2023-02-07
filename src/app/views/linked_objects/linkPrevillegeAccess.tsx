@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
 import  Navbar  from '../../components/Navbar'
 import Header from '../../components/Header'
-import { Button, Form, Modal, Spinner } from 'react-bootstrap';
+import { Button, Spinner } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAdd, faEdit, faList, faAt ,faPerson, faPhone, faLock, faBoxOpen } from '@fortawesome/free-solid-svg-icons';
+import {  faEdit, faList ,faPerson, faBoxOpen } from '@fortawesome/free-solid-svg-icons';
 import { useAppDispatch } from '../../hooks';
 import SuccessMessage from '../../components/messages/SuccessMessage';
 import ErrorMessage from '../../components/messages/ErrorMessage';
-import { Access, useFetchAccesssQuery, useFetchLinkedPrivillegeQuery, useLinkPrivillegeMutation } from '../../../features/access/access';
+import {  useFetchLinkedPrivillegeQuery, useLinkPrivillegeMutation } from '../../../features/access/access';
 import { useParams } from 'react-router-dom';
-import { useGetPrivillegeQuery ,  useFetchLinkedAccessQuery, useLinkAccessMutation, useFetchPrivillegesQuery, Privillege} from '../../../features/privillege/privillege';
+import { useGetPrivillegeQuery , useFetchPrivillegesQuery, Privillege} from '../../../features/privillege/privillege';
 
 
 

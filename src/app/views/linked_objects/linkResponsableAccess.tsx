@@ -2,10 +2,9 @@ import React, { useState } from 'react'
 import  Navbar  from '../../components/Navbar'
 import Header from '../../components/Header'
 import {  useGetResponsableQuery,  useFetchLinkedAccessQuery, useLinkAccessMutation } from '../../../features/responsable/responsable' 
-import { Button, Form, Modal, Spinner } from 'react-bootstrap';
+import { Button, Spinner } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAdd, faEdit, faList, faAt ,faPerson, faPhone, faLock } from '@fortawesome/free-solid-svg-icons';
-import { useAppDispatch } from '../../hooks';
+import {  faEdit, faList, faPerson,  faLock } from '@fortawesome/free-solid-svg-icons';
 import SuccessMessage from '../../components/messages/SuccessMessage';
 import ErrorMessage from '../../components/messages/ErrorMessage';
 import { useFetchAccesssQuery } from '../../../features/access/access';
@@ -17,7 +16,6 @@ import { useParams } from 'react-router-dom';
 
   const [keyword, setKeyword] = React.useState("all");
   const [page,setPage] = React.useState(1);
-  const dispatch = useAppDispatch();
   const {id} = useParams();
   const [linkAccess] = useLinkAccessMutation();
 

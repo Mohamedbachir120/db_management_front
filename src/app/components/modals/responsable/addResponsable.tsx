@@ -1,9 +1,9 @@
 import React from 'react'
 import { Button,Form,Modal } from 'react-bootstrap'
-import { ResponsableUiState, hide, initialize, setCreated, setError } from '../../../../features/responsable/responsable-ui';
+import { ResponsableUiState,  initialize, setCreated, setError } from '../../../../features/responsable/responsable-ui';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPerson, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faPerson } from '@fortawesome/free-solid-svg-icons';
 import { Responsable, useStoreResponsableMutation ,  } from '../../../../features/responsable/responsable';
 import SuccessMessage from '../../messages/SuccessMessage';
 import Loader from '../../Loader';
@@ -19,7 +19,7 @@ function AddResponsableModal({refetch}:{refetch:()=>void}) {
 
 
 
-  const [storeResponsable,{isLoading,isError,isSuccess,reset}] = useStoreResponsableMutation();
+  const [storeResponsable,{isLoading}] = useStoreResponsableMutation();
 
 
     const dispatch = useAppDispatch();

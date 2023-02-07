@@ -2,9 +2,9 @@ import React from 'react'
 import  Navbar  from '../components/Navbar'
 import Header from '../components/Header'
 import { useFetchPrivillegesQuery,Privillege } from '../../features/privillege/privillege' 
-import { Button, Form, Modal } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAdd, faDatabase, faLock } from '@fortawesome/free-solid-svg-icons';
+import { faAdd, faLock } from '@fortawesome/free-solid-svg-icons';
 import TableSkeleton from '../components/skeletons/TableSkeleton';
 import { useAppDispatch } from '../hooks';
 import {  show, showDetail } from '../../features/privillege/privillege-ui';

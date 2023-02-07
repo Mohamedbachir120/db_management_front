@@ -2,13 +2,12 @@ import React from 'react'
 import  Navbar  from '../components/Navbar'
 import Header from '../components/Header'
 import { useFetchPopulationsQuery,Population } from '../../features/population/population' 
-import { Button, Form, Modal } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAdd, faPeopleGroup } from '@fortawesome/free-solid-svg-icons';
 import TableSkeleton from '../components/skeletons/TableSkeleton';
 import { useAppDispatch } from '../hooks';
 import {  show, showDetail } from '../../features/population/population-ui';
-import EditServerModal from '../components/modals/population/editPopulationModal';
 import AddPopulationModal from '../components/modals/population/addPopulation';
 import DetailsPopulationModal from '../components/modals/population/detailsPopulationModal';
 import EditPopulationModal from '../components/modals/population/editPopulationModal';

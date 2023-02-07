@@ -1,22 +1,20 @@
 import React from 'react'
-import { Privillege, useDeletePrivillegeMutation, useUpdatePrivillegeMutation } from '../../../../features/privillege/privillege'
-import { faLink , faEdit ,  faEraser, faCheck, faXmark, faLock } from '@fortawesome/free-solid-svg-icons'
+import { Privillege, useUpdatePrivillegeMutation } from '../../../../features/privillege/privillege'
+import {  faLock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, Form, Modal } from 'react-bootstrap'
-import serverUi, { PrivillegeUiState, initialize,setCreated, setError, setName, setSecurable  } from '../../../../features/privillege/privillege-ui'
+import  { PrivillegeUiState, initialize,setCreated, setError, setName, setSecurable  } from '../../../../features/privillege/privillege-ui'
 import { useAppDispatch, useAppSelector } from '../../../hooks'
 import ErrorMessage from '../../messages/ErrorMessage'
 import SuccessMessage from '../../messages/SuccessMessage'
 import Loader from '../../Loader'
 
-import { initSgbd } from '../../../../features/sgbd/sgbd-ui'
 
 
 function EditPrivillegeModal({refetch}:{refetch:()=>void}) {
   const uistate = useAppSelector((state:{privillegeUi:PrivillegeUiState}) => state.privillegeUi);
   const dispatch = useAppDispatch();
-  const [keyword, setKeyword] = React.useState("all");
-  const [page,setPage] = React.useState(1);
+  
     const [updatePrivillege,{isLoading}] = useUpdatePrivillegeMutation();
     
     

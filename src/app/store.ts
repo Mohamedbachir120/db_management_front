@@ -9,8 +9,6 @@ import responsableUiSlice from "../features/responsable/responsable-ui";
 import populationUiSlice from "../features/population/population-ui";
 import bddUiSlice from "../features/bdd/bdd-ui";
 import privillegeUiSlice from "../features/privillege/privillege-ui";
-
-
 import { serveurSlice } from "../features/serveur/serveur";
 import { accessSlice } from "../features/access/access";
 import { sgbdSlice } from "../features/sgbd/sgbd";

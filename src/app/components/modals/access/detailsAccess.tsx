@@ -1,9 +1,8 @@
-import React from 'react'
-import { Access, useDeleteAccessMutation } from '../../../../features/access/access'
+import {  useDeleteAccessMutation } from '../../../../features/access/access'
 import { faKey , faEdit ,  faEraser, faCheck, faXmark, faLock, faCopy } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, Modal } from 'react-bootstrap'
-import accessUi, { AccessUiState, initialize, setDeleted,showEdit , setError, showConfirmationMessage, hideDetail, ShowPassword } from '../../../../features/access/access-ui'
+import  { AccessUiState, initialize, setDeleted,showEdit , setError, showConfirmationMessage, hideDetail, ShowPassword } from '../../../../features/access/access-ui'
 import { useAppDispatch, useAppSelector } from '../../../hooks'
 import ErrorMessage from '../../messages/ErrorMessage'
 import SuccessMessage from '../../messages/SuccessMessage'
@@ -14,7 +13,7 @@ function DetailsAccessModal({refetch}:{refetch:()=>void}) {
     const uistate = useAppSelector((state:{accessUi:AccessUiState}) => state.accessUi);
     const dispatch = useAppDispatch();
 
-    const [deleteAccess,{isLoading,isError,isSuccess,reset}] = useDeleteAccessMutation();
+    const [deleteAccess,{isLoading}] = useDeleteAccessMutation();
     
     function handleClose(){
         dispatch(initialize());

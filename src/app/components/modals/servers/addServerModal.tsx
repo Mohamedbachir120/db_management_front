@@ -1,9 +1,9 @@
 import React from 'react'
 import { Button,Form,Modal } from 'react-bootstrap'
-import { ServerUiState, hide, initialize, setCreated, setError } from '../../../../features/serveur/server-ui';
+import { ServerUiState,  initialize, setCreated, setError } from '../../../../features/serveur/server-ui';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faServer, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faServer,  } from '@fortawesome/free-solid-svg-icons';
 import { Server, useStoreServerMutation ,  } from '../../../../features/serveur/serveur';
 import SuccessMessage from '../../messages/SuccessMessage';
 import Loader from '../../Loader';
@@ -19,7 +19,7 @@ function AddServerModal({refetch}:{refetch:()=>void}) {
     const [osVersion, setOsVersion] = React.useState('');
 
 
-  const [storeServer,{isLoading,isError,isSuccess,reset}] = useStoreServerMutation();
+  const [storeServer,{isLoading}] = useStoreServerMutation();
 
 
     const dispatch = useAppDispatch();

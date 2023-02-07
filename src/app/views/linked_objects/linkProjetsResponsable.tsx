@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import  Navbar  from '../../components/Navbar'
 import Header from '../../components/Header'
 import {  useGetProjectQuery,  useFetchLinkedResponsablesQuery, useLinkResponsableMutation } from '../../../features/project/project' 
-import { Button, Form, Modal, Spinner } from 'react-bootstrap';
+import { Button,  Spinner } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAdd, faEdit, faList, faAt ,faPerson, faPhone } from '@fortawesome/free-solid-svg-icons';
+import {  faEdit, faList, faAt ,faPerson, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { useAppDispatch } from '../../hooks';
 import SuccessMessage from '../../components/messages/SuccessMessage';
 import ErrorMessage from '../../components/messages/ErrorMessage';

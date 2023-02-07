@@ -1,10 +1,8 @@
 
 import "./../../dashboard.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import Navbar from '../components/Navbar';
 import Header from '../components/Header';
-import { faker } from '@faker-js/faker';
 import { useEffect } from "react";
 import {
   Chart as ChartJS,
@@ -19,8 +17,7 @@ import {
   Filler,
   Legend,
 } from 'chart.js';
-import { Line , Pie, Doughnut} from 'react-chartjs-2';
-import { useFetchStatsQuery } from "../../features/serveur/serveur";
+import { Line } from 'react-chartjs-2';
 import { useState } from "react";
 import axios from "axios";
 import { baseUrl } from "../constantes/const";

@@ -1,9 +1,9 @@
 import React from 'react'
 import { Button,Form,Modal } from 'react-bootstrap'
-import { PopulationUiState, hide, initialize, setCreated, setError } from '../../../../features/population/population-ui';
+import { PopulationUiState, initialize, setCreated, setError } from '../../../../features/population/population-ui';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPeopleGroup, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faPeopleGroup } from '@fortawesome/free-solid-svg-icons';
 import { Population, useStorePopulationMutation ,  } from '../../../../features/population/population';
 import SuccessMessage from '../../messages/SuccessMessage';
 import Loader from '../../Loader';

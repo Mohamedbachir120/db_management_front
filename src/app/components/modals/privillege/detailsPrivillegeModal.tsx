@@ -1,9 +1,8 @@
-import React from 'react'
-import { Privillege, useDeletePrivillegeMutation } from '../../../../features/privillege/privillege'
-import { faDatabase , faEdit ,  faEraser, faCheck, faXmark, faKey, faLock } from '@fortawesome/free-solid-svg-icons'
+import {  useDeletePrivillegeMutation } from '../../../../features/privillege/privillege'
+import {  faEdit ,  faEraser, faCheck, faXmark, faKey, faLock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, Modal } from 'react-bootstrap'
-import serverUi, { initialize, setDeleted,showEdit , setError, showConfirmationMessage, hideDetail } from '../../../../features/privillege/privillege-ui'
+import  { initialize, setDeleted,showEdit , setError, showConfirmationMessage, hideDetail } from '../../../../features/privillege/privillege-ui'
 import { useAppDispatch, useAppSelector } from '../../../hooks'
 import ErrorMessage from '../../messages/ErrorMessage'
 import SuccessMessage from '../../messages/SuccessMessage'
@@ -15,7 +14,7 @@ function DetailsPrivillegeModal({refetch}:{refetch:()=>void}) {
     const uistate = useAppSelector((state:{privillegeUi:PrivillegeUiState}) => state.privillegeUi);
     const dispatch = useAppDispatch();
 
-    const [deletePrivillege,{isLoading,isError,isSuccess,reset}] = useDeletePrivillegeMutation();
+    const [deletePrivillege,{isLoading}] = useDeletePrivillegeMutation();
     
     function handleClose(){
         dispatch(initialize());

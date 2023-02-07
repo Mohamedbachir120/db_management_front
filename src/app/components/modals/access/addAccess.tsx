@@ -1,9 +1,9 @@
 import React from 'react'
 import { Button,Form,Modal } from 'react-bootstrap'
-import { AccessUiState, hide, initialize, setCreated, setError } from '../../../../features/access/access-ui';
+import { AccessUiState, initialize, setCreated, setError } from '../../../../features/access/access-ui';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faKey, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faKey } from '@fortawesome/free-solid-svg-icons';
 import { Access, useStoreAccessMutation ,  } from '../../../../features/access/access';
 import SuccessMessage from '../../messages/SuccessMessage';
 import Loader from '../../Loader';

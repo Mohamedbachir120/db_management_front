@@ -1,9 +1,9 @@
 import React from 'react'
-import { Bdd, useDeleteBddMutation, useUpdateBddMutation } from '../../../../features/bdd/bdd'
-import { faLink , faEdit ,  faEraser, faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { Bdd, useUpdateBddMutation } from '../../../../features/bdd/bdd'
+import { faLink   } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, Form, Modal } from 'react-bootstrap'
-import serverUi, { BddUiState, initialize,setCreated, setError, setName, setStatus,setEngine,setCreationDate,setServer,setSgbd, initServer } from '../../../../features/bdd/bdd-ui'
+import  { BddUiState, initialize,setCreated, setError, setName, setStatus,setEngine,setCreationDate,setServer,setSgbd, initServer } from '../../../../features/bdd/bdd-ui'
 import { useAppDispatch, useAppSelector } from '../../../hooks'
 import ErrorMessage from '../../messages/ErrorMessage'
 import SuccessMessage from '../../messages/SuccessMessage'
@@ -16,8 +16,8 @@ import { initSgbd } from '../../../../features/sgbd/sgbd-ui'
 function EditBddModal({refetch}:{refetch:()=>void}) {
   const uistate = useAppSelector((state:{bddUi:BddUiState}) => state.bddUi);
   const dispatch = useAppDispatch();
-  const [keyword, setKeyword] = React.useState("all");
-  const [page,setPage] = React.useState(1);
+  const [keyword] = React.useState("all");
+  const [page] = React.useState(1);
     const [updateBdd,{isLoading}] = useUpdateBddMutation();
     
     

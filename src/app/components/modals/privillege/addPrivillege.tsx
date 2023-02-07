@@ -1,23 +1,18 @@
 import React from 'react'
 import { Button,Form,Modal } from 'react-bootstrap'
-import { PrivillegeUiState, hide, initPrivillege, initialize, setCreated, setError } from '../../../../features/privillege/privillege-ui';
+import { PrivillegeUiState, initialize, setCreated, setError } from '../../../../features/privillege/privillege-ui';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDatabase, faCheck, faLock } from '@fortawesome/free-solid-svg-icons';
+import {  faLock } from '@fortawesome/free-solid-svg-icons';
 import { Privillege, useStorePrivillegeMutation ,  } from '../../../../features/privillege/privillege';
 import SuccessMessage from '../../messages/SuccessMessage';
 import Loader from '../../Loader';
 import ErrorMessage from '../../messages/ErrorMessage';
-import { ListResponse, Server, useFetchServersQuery } from '../../../../features/serveur/serveur';
-import { Sgbd, useFetchSgbdsQuery } from '../../../../features/sgbd/sgbd';
-import { initSgbd } from '../../../../features/sgbd/sgbd-ui';
+
 
 function AddPrivillegeModal({refetch}:{refetch:()=>void}) {
     const uistate = useAppSelector((state:{privillegeUi:PrivillegeUiState}) => state.privillegeUi);
 
-
-    const [keyword, setKeyword] = React.useState("all");
-    const [page,setPage] = React.useState(1);
 
     const [name, setName] = React.useState('');
     const [securable, setSecurable] = React.useState('');
@@ -26,7 +21,7 @@ function AddPrivillegeModal({refetch}:{refetch:()=>void}) {
     
   
     
-  const [storePrivillege,{isLoading,isError,reset}] = useStorePrivillegeMutation();
+  const [storePrivillege,{isLoading}] = useStorePrivillegeMutation();
 
 
     const dispatch = useAppDispatch();

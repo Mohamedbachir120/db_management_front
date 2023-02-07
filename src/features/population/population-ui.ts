@@ -32,7 +32,7 @@ const initialState:PopulationUiState = {
     showDetail: false,
     showEdit:false,
     showConfirmationMessage:false,
-    population: new Population(0,"")
+    population: new Population(0,"",[])
 
 
     

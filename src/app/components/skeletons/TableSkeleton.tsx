@@ -1,5 +1,4 @@
 import React from 'react'
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import "./../../../dashboard.css";
 
 const  TableSkeleton:React.FC<{data:number}> = ({data=10}) => {

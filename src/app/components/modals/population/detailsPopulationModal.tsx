@@ -36,6 +36,15 @@ function DetailsPopulationModal({refetch}:{refetch:()=>void}) {
         <ul className='list-unstyled card'>
             <li className='list-style-none'> <span className='text-green fw-bold'>Designation : &nbsp;</span>   
                 {uistate.population.designation}</li>
+            <li className='list-style-none'> 
+                <span className='text-green fw-bold'>Projets : &nbsp;</span>  
+
+                <ol >
+                   {uistate.population.projects?.length > 0 ? uistate.population.projects?.map((project)=>(<li key={project.id}>
+                        {project.name}
+                    </li>)) : (<span>Aucun projet affecté</span>) } 
+                </ol>
+                </li>    
 
         
 

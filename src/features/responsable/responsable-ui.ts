@@ -32,7 +32,7 @@ const initialState:ResponsableUiState = {
     showDetail: false,
     showEdit:false,
     showConfirmationMessage:false,
-    responsable: new Responsable(0,"","","")
+    responsable: new Responsable(0,"","","",[])
 
 
     

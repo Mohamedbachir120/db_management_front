@@ -63,7 +63,7 @@ function AddPopulationModal({refetch}:{refetch:()=>void}) {
           Annuler
         </Button>
         <button className="btn bg-primaire" onClick={async () => {
-            const population = new Population(0,designation);
+            const population = new Population(0,designation,[]);
               try {
                 const payload = await storePopulation(population).unwrap();
 

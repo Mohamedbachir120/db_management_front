@@ -42,7 +42,13 @@ function DetailsResponsableModal({refetch}:{refetch:()=>void}) {
             {uistate.responsable.email}</li>
             <li className='list-style-none'> <span className='text-green fw-bold'>Phone : &nbsp;</span>   
             {uistate.responsable.phone}</li>
-                
+            <li className='list-style-none'> <span className='text-green fw-bold'>Projets : &nbsp;</span>   
+            <ol>
+            {uistate.responsable.projects?.length > 0 ? uistate.responsable.projects?.map((project) => (<li key={project.id}> 
+              {project.name}
+            </li>)): (<p> Aucun projet affecté</p>) }
+            </ol>
+            </li>    
         </ul>
         <div className='d-flex flex-row justify-content-between col-11'>
           <div className='col-4 mx-2'>

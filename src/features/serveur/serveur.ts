@@ -30,7 +30,7 @@ export class Server {
 }
 export class ExtendedPopulation extends Population {
     constructor(id=0,designation:string,projects_count:number){
-        super(id,designation);
+        super(id,designation,[]);
         this.projects_count = projects_count;
         
     }

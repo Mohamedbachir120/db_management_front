@@ -81,7 +81,7 @@ function EditResponsableModal({refetch}:{refetch:()=>void}) {
         Annuler
       </Button>
       <button className="btn bg-primaire" onClick={async () => {
-          const responsable = new Responsable(uistate.responsable.id,uistate.responsable.name,uistate.responsable.email,uistate.responsable.phone);
+          const responsable = new Responsable(uistate.responsable.id,uistate.responsable.name,uistate.responsable.email,uistate.responsable.phone,[]);
           try {
             const payload = await updateResponsable(responsable).unwrap();
             dispatch(setCreated());

@@ -86,7 +86,7 @@ function AddResponsableModal({refetch}:{refetch:()=>void}) {
           Annuler
         </Button>
         <button className="btn bg-primaire" onClick={async () => {
-            const responsable = new Responsable(0,name, email,phone);
+            const responsable = new Responsable(0,name, email,phone,[]);
             console.log(responsable);
             
             try {

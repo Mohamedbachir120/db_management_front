@@ -2,20 +2,23 @@ import {  createApi } from '@reduxjs/toolkit/query/react';
 import { baseQueryWithReauth } from '../../app/services/baseQuery';
 import { StandarResponse } from '../../app/services/standardResponse';
 import { Access } from '../access/access';
+import { Project } from '../project/project';
 
 export class Responsable {
-    constructor(id=0,name:string,email:string,phone:string) {
+    constructor(id=0,name:string,email:string,phone:string,projects:Project[]) {
 
         this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
+        this.projects = projects;
 
     }
     id: number;
     name: string;
     email: string;
     phone:string;
+    projects:Project[];
 
 }
 export interface Page{

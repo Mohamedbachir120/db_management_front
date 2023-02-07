@@ -60,7 +60,7 @@ function EditPopulationModal({refetch}:{refetch:()=>void}) {
         Annuler
       </Button>
       <button className="btn bg-primaire" onClick={async () => {
-          const population = new Population(uistate.population.id,uistate.population.designation);
+          const population = new Population(uistate.population.id,uistate.population.designation,[]);
           try {
             const payload = await updatePopulation(population).unwrap();
             dispatch(setCreated());

@@ -1,17 +1,20 @@
 import {  createApi } from '@reduxjs/toolkit/query/react';
 import { baseQueryWithReauth } from '../../app/services/baseQuery';
 import { StandarResponse } from '../../app/services/standardResponse';
+import { Project } from '../project/project';
 
 export class Population {
-    constructor(id=0,designation:string) {
+    constructor(id=0,designation:string,projects:Project[]) {
 
         this.id = id;
         this.designation = designation;
+        this.projects = projects;
        
 
     }
     id: number;
     designation: string;
+    projects:Project[];
  
 
 }

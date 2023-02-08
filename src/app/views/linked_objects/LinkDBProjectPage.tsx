@@ -1,16 +1,13 @@
 import React, { useState } from 'react'
 import  Navbar  from '../../components/Navbar'
 import Header from '../../components/Header'
-import { useFetchProjectsQuery,Project, useGetProjectQuery, useFetchLinkedDbQuery, useLinkDBMutation } from '../../../features/project/project' 
+import {  useGetProjectQuery, useFetchLinkedDbQuery, useLinkDBMutation } from '../../../features/project/project' 
 import { Button, Form, Modal, Spinner } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAdd, faEdit, faList } from '@fortawesome/free-solid-svg-icons';
-import TableSkeleton from '../../components/skeletons/TableSkeleton';
+import {  faEdit, faList } from '@fortawesome/free-solid-svg-icons';
 import { useAppDispatch } from '../../hooks';
-import {  show, showDetail } from '../../../features/project/project-ui';
-import { useLinkClickHandler, useParams } from 'react-router-dom';
+import {  useParams } from 'react-router-dom';
 import { useFetchBddsQuery } from '../../../features/bdd/bdd';
-import SelectSearch from 'react-select-search';
 import SuccessMessage from '../../components/messages/SuccessMessage';
 import ErrorMessage from '../../components/messages/ErrorMessage';
 

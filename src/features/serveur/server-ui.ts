@@ -1,4 +1,4 @@
-import { createSlice,PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { Server } from "./serveur";
 export class ServerUiState{
     constructor (show:boolean,created:boolean,isError:boolean,showEdit:boolean,showDetail:boolean,server:Server,showConfirmationMessage:boolean,isDeleted:boolean)  {

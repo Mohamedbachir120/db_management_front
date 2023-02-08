@@ -1,4 +1,4 @@
-import { createSlice,PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { Sgbd } from "./sgbd";
 
 export const initSgbd = new Sgbd(0,"","");

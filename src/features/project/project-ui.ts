@@ -1,4 +1,4 @@
-import { createSlice,PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { Project } from "./project";
 export class ProjectUiState{
     constructor (show:boolean,created:boolean,showLinked:boolean,isError:boolean,showEdit:boolean,showDetail:boolean,project:Project,showConfirmationMessage:boolean,isDeleted:boolean)  {

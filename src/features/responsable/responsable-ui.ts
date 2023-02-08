@@ -1,4 +1,4 @@
-import { createSlice,PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { Responsable } from "./responsable";
 export class ResponsableUiState{
     constructor (show:boolean,created:boolean,isError:boolean,showEdit:boolean,showDetail:boolean,responsable:Responsable,showConfirmationMessage:boolean,isDeleted:boolean)  {
